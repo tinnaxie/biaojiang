@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>表酱</title>
+        <link href="$link.contextPath/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div id="content_box">
+            <div id="top_box">
+                <div id="title_box"><label>表酱</label></div>
+                <div id="save_box">&nbsp;&nbsp;<a href="#springUrl("/report/save")">完成</a></div>
+                <div id="cancel_box"><a href="#springUrl("/index")">取消</a></div>
+            </div>
+            <div id="report_name_box">
+                <label>日报</label>
+            </div>
+            <div id="report_content_box">
+                <div id="node_1">
+                    <div id="node_1_label"><label>工地建设</label></div>
+                    <div id="node_2">
+                        <div id="node_2_label" class="fl">&nbsp;&nbsp;&nbsp;&nbsp;<label>现场是否整洁干净？</label></div>
+                        <div id="add_photo_btn">&nbsp;&nbsp;<a href="#">+照片</a></div>
+                        <div id="node_3">
+                            <div id="node_3_radio_option1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="name" value="option1"/>达到要求</div>
+                            <div id="node_3_radio_option2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="name" value="option2"/>未达要求</div>
+                            <div id="node_4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea>备注</textarea></div>
+                            <div id="node_5" class="attachment_photo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">照片1</a></div>
+                            <div id="node_5_delete">&nbsp;&nbsp;<a href="#">删除</a></div>
+                            <div id="node_6" class="attachment_photo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">照片2</a></div>
+                            <div id="node_6_delete">&nbsp;&nbsp;<a href="#">删除</a></div>
+                        </div>
+                    </div>
+                    <div id="node_9">
+                        <div class="fl">&nbsp;&nbsp;&nbsp;&nbsp;<label>标志标识牌是否清晰？</label></div>
+                        <div id="add_photo_btn">&nbsp;&nbsp;<a href="#">+照片</a></div>
+                        <div id="node_10">
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="name" value="option1"/>达到要求</div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="name" value="option2"/>未达要求</div>
+                            <div id="node_4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea>备注</textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+<div id="navigator_box">
+    <div id="navi_1" class="navigator_style">
+        <a href="#springUrl("/report/index")">报表管理</a>
+    </div>
+    <div id="navi_2" class="navigator_style">
+        <a href="#springUrl("/template/index")">模版管理</a>
+    </div>
+    <div id="navi_3" class="navigator_style">
+        <a href="#">统计分析</a>
+    </div>
+</div>

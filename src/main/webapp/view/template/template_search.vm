@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>表酱</title>
+        <link href="$link.contextPath/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div id="content_box">
+            <div id="top_box">
+                <div id="title_box"><label>表酱</label></div>
+            </div>
+            <div id="search_box">
+                <div><textarea>输入关键字</textarea></div>
+                <div><a href="#">搜索</a></div>
+            </div>
+            <div id="main_box">
+                <div id="template_1">
+                    <a href="#springUrl("/template/view")">日报</a>
+                </div>
+                <div id="template_2">
+                    <a href="#springUrl("/template/view")">周报</a>
+                </div>
+                <div id="template_3">
+                    <a href="#springUrl("/template/view")">月报</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

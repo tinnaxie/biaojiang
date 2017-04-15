@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>表酱</title>
+        <link href="$link.contextPath/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div id="content_box">
+            <div id="top_box">
+                <div id="title_box"><label>表酱</label></div>
+                <div id="cancel_box" class="cancel_style"><a href="#springUrl("/index")">取消</a></div>
+            </div>
+            <div id="report_type_content_box">
+                <div><a href="#springUrl("/report/create")">日报</a></div>
+                <div><a href="#springUrl("/report/create")">周报</a></div>
+                <div><a href="#springUrl("/report/create")">月报</a></div>
+            </div>
+        </div>
+    </body>
+</html>
