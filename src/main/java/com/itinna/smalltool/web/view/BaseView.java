@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
+package com.itinna.smalltool.web.view;
 
 /**
  * 视图模型对象基类
@@ -9,6 +9,6 @@ package com.itinna.smalltool.web.vo;
  * @author tinna.xie
  * @date : 2017年4月2日 下午1:35:50
  */
-public abstract class BaseVO {
+public abstract class BaseView {
 
 }

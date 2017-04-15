@@ -17,38 +17,42 @@ public class SearchReportForm extends BaseForm {
 
     private Long templateId;
 
-    private Long reportUserId;
-
     private Date date;
 
+    private String startTime;
+
+    private String endTime;
+
     /**
-     * @return the reportUserId
+     * @return the startTime
      */
-    public Long getReportUserId() {
-        return reportUserId;
+    public String getStartTime() {
+        // TODO
+        return startTime;
     }
 
     /**
-     * @param reportUserId
-     *            the reportUserId to set
+     * @param startTime
+     *            the startTime to set
      */
-    public void setReportUserId(Long reportUserId) {
-        this.reportUserId = reportUserId;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     /**
-     * @return the date
+     * @return the endTime
      */
-    public Date getDate() {
-        return date;
+    public String getEndTime() {
+        // TODO
+        return endTime;
     }
 
     /**
-     * @param date
-     *            the date to set
+     * @param endTime
+     *            the endTime to set
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     /**
@@ -79,6 +83,21 @@ public class SearchReportForm extends BaseForm {
      */
     public void setTemplateId(Long templateId) {
         this.templateId = templateId;
+    }
+
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date
+     *            the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }

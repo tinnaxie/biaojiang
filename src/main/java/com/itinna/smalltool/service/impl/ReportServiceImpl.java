@@ -36,16 +36,19 @@ import com.itinna.smalltool.web.form.SaveReportForm;
 import com.itinna.smalltool.web.form.SearchReportForm;
 import com.itinna.smalltool.web.form.SelectReportTypeForm;
 import com.itinna.smalltool.web.form.ViewReportForm;
-import com.itinna.smalltool.web.vo.CreateReportVO;
-import com.itinna.smalltool.web.vo.ModifyReportVO;
-import com.itinna.smalltool.web.vo.NodeTypeVO;
-import com.itinna.smalltool.web.vo.NodeVO;
-import com.itinna.smalltool.web.vo.ReportTypeListVO;
-import com.itinna.smalltool.web.vo.ReportTypeVO;
-import com.itinna.smalltool.web.vo.SaveReportVO;
-import com.itinna.smalltool.web.vo.SearchReportListVO;
-import com.itinna.smalltool.web.vo.TemplateVO;
-import com.itinna.smalltool.web.vo.ViewReportVO;
+import com.itinna.smalltool.web.view.AttachmentView;
+import com.itinna.smalltool.web.view.CreateReportView;
+import com.itinna.smalltool.web.view.ModifyReportView;
+import com.itinna.smalltool.web.view.NodeTypeView;
+import com.itinna.smalltool.web.view.NodeView;
+import com.itinna.smalltool.web.view.ReportNodeValueView;
+import com.itinna.smalltool.web.view.ReportTypeView;
+import com.itinna.smalltool.web.view.ReportView;
+import com.itinna.smalltool.web.view.SaveReportView;
+import com.itinna.smalltool.web.view.SearchReportView;
+import com.itinna.smalltool.web.view.SelectReportTypeView;
+import com.itinna.smalltool.web.view.TemplateView;
+import com.itinna.smalltool.web.view.ViewReportView;
 
 /**
  * non-javadoc
@@ -72,60 +75,60 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
     private AttachmentMapper attachmentMapper;
 
     @Override
-    public CreateReportVO createReport(CreateReportForm form) {
+    public CreateReportView createReport(CreateReportForm form) {
+        // 获取模版
         Long templateId = form.getTemplateId();
         if (templateId == null) {
             throw new ServiceException("no template id");
         }
 
-        // 获取模版
         Template template = this.templateMapper.select4ReportCreatingByTemplateId(templateId);
         if (template == null) {
             throw new ServiceException("no template");
         }
 
-        TemplateVO templateVO = new TemplateVO();
-        templateVO.setTemplateId(templateId);
-        templateVO.setTemplateName(template.getTemplateName());
-        templateVO.setDesc(template.getDesc());
+        // 设置返回值
+        CreateReportView view = new CreateReportView();
+        TemplateView templateView = new TemplateView();
+        view.setTemplate(templateView);
+
+        templateView.setTemplateId(templateId);
+        templateView.setTemplateName(template.getTemplateName());
+        templateView.setDesc(template.getDesc());
 
         List<Node> nodes = template.getNodes();
         if (nodes != null && nodes.size() != 0) {
-            List<NodeVO> nodeVOList = new ArrayList<NodeVO>();
-            templateVO.setNodes(nodeVOList);
+            List<NodeView> nodeViews = new ArrayList<NodeView>();
+            templateView.setNodes(nodeViews);
 
             for (Node node : nodes) {
-                NodeVO nodeVO = new NodeVO();
-                nodeVOList.add(nodeVO);
+                NodeView nodeView = new NodeView();
+                nodeViews.add(nodeView);
 
-                nodeVO.setNodeId(node.getNodeId());
-                nodeVO.setNodeName(node.getNodeName());
-                nodeVO.setParentId(node.getParentNodeId());
-                nodeVO.setPosition(node.getPosition());
-                nodeVO.setIsRequired(GeneralConstant.IS_REQUIRED.equals(node.getIsRequired()));
+                nodeView.setNodeId(node.getNodeId());
+                nodeView.setNodeName(node.getNodeName());
+                nodeView.setParentId(node.getParentNodeId());
+                nodeView.setPosition(node.getPosition());
+                nodeView.setIsRequired(GeneralConstant.IS_REQUIRED.equals(node.getIsRequired()));
 
                 NodeType nodeType = node.getNodeType();
                 if (nodeType != null) {
-                    NodeTypeVO nodeTypeVO = new NodeTypeVO();
-                    nodeVO.setNodeType(nodeTypeVO);
+                    NodeTypeView nodeTypeView = new NodeTypeView();
+                    nodeView.setNodeType(nodeTypeView);
 
-                    nodeTypeVO.setNodeTypeId(nodeType.getNodeTypeId());
-                    nodeTypeVO.setNodeTypeName(nodeType.getNodeTypeName());
-                    nodeTypeVO.setDesc(nodeType.getDesc());
+                    nodeTypeView.setNodeTypeId(nodeType.getNodeTypeId());
+                    nodeTypeView.setNodeTypeName(nodeType.getNodeTypeName());
+                    nodeTypeView.setDesc(nodeType.getDesc());
                 }
             }
         }
 
-        // 设置视图模型对象
-        CreateReportVO vo = new CreateReportVO();
-        vo.setTemplate(templateVO);
-
-        return vo;
+        return view;
     }
 
     @Override
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public SaveReportVO saveReport(SaveReportForm form) {
+    public SaveReportView saveReport(SaveReportForm form) {
         // insert report
         Report report = form.getReport();
         if (report == null) {
@@ -180,10 +183,54 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
             throw new ServiceException("no report");
         }
 
-        SaveReportVO vo = new SaveReportVO();
-        vo.setReport(report);
+        // set return value
+        SaveReportView view = new SaveReportView();
+        ReportView reportView = new ReportView();
+        view.setReport(reportView);
 
-        return vo;
+        reportView.setReportId(report.getReportId());
+        reportView.setReportName(report.getReportName());
+
+        List<ReportNodeValue> values = report.getNodeValues();
+        if (values != null && values.size() > 0) {
+            List<ReportNodeValueView> valueViews = new ArrayList<ReportNodeValueView>();
+            reportView.setValues(valueViews);
+
+            for (ReportNodeValue value : values) {
+                ReportNodeValueView valueView = new ReportNodeValueView();
+                valueViews.add(valueView);
+
+                valueView.setValue(value.getValue());
+
+                Node node = value.getNode();
+                if (node == null) {
+                    throw new ServiceException("no node");
+                }
+                NodeView nodeView = new NodeView();
+                valueView.setNode(nodeView);
+
+                nodeView.setNodeName(node.getNodeName());
+                nodeView.setNodeTypeId(node.getNodeTypeId());
+                nodeView.setParentId(node.getParentNodeId());
+                nodeView.setPosition(node.getPosition());
+
+                List<Attachment> attachments = value.getAttachments();
+                if (attachments != null && attachments.size() > 0) {
+                    List<AttachmentView> attachmentViews = new ArrayList<AttachmentView>();
+                    valueView.setAttachments(attachmentViews);
+
+                    for (Attachment attachment : attachments) {
+                        AttachmentView attachmentView = new AttachmentView();
+                        attachmentViews.add(attachmentView);
+
+                        attachmentView.setTypeId(attachment.getAttachementTypeId());
+                        attachmentView.setUrl(attachment.getUrl());
+                    }
+                }
+            }
+        }
+
+        return view;
     }
 
     private String getAttachmentUrl() {
@@ -210,13 +257,46 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
     }
 
     @Override
-    public SearchReportListVO searchReport(SearchReportForm form) {
-        // TODO Auto-generated method stub
-        return null;
+    public SearchReportView searchReport(SearchReportForm form) {
+        // select reports by condition
+        Long userId = form.getUserId();
+        if (userId == null) {
+            throw new ServiceException("no user");
+        }
+
+        int recordCount = this.reportMapper.countByCondition(form);
+        int pageSize = 31; // TODO
+
+        Pagination pagination = form.getPagination();
+        if (pagination == null) {
+            pagination = new Pagination(recordCount, pageSize);
+        } else {
+            pagination.setRecordCount(recordCount);
+            pagination.setPageSize(pageSize);
+            pagination.compute();
+        }
+
+        List<Report> reports = this.reportMapper.selectByCondition(form);
+
+        // set return value
+        SearchReportView view = new SearchReportView();
+        if (reports != null && reports.size() > 0) {
+            List<ReportView> reportViews = new ArrayList<ReportView>();
+            view.setReports(reportViews);
+
+            for (Report report : reports) {
+                ReportView reportView = new ReportView();
+                reportViews.add(reportView);
+
+                reportView.setReportId(report.getReportId());
+                reportView.setReportName(report.getReportName());
+            }
+        }
+        return view;
     }
 
     @Override
-    public ReportTypeListVO selectType(SelectReportTypeForm form) {
+    public SelectReportTypeView selectType(SelectReportTypeForm form) {
         Long userId = form.getUserId();
         if (userId == null) {
             throw new ServiceException("no user");
@@ -241,10 +321,10 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
         // 查询报表模版
         List<Template> templates = this.templateMapper.selectWritableByUserId(form);
-        List<ReportTypeVO> reportTypes = new ArrayList<ReportTypeVO>();
+        List<ReportTypeView> reportTypes = new ArrayList<ReportTypeView>();
         if (templates != null && templates.size() > 0) {
             for (Template template : templates) {
-                ReportTypeVO reportType = new ReportTypeVO();
+                ReportTypeView reportType = new ReportTypeView();
                 reportType.setRepportTypeId(template.getTemplateId());
                 reportType.setReportTypeName(template.getTemplateName());
                 reportType.setDesc(template.getDesc());
@@ -253,20 +333,20 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
         }
 
         // 设置返回值
-        ReportTypeListVO vo = new ReportTypeListVO();
+        SelectReportTypeView vo = new SelectReportTypeView();
         vo.setReportTypes(reportTypes);
 
         return vo;
     }
 
     @Override
-    public ViewReportVO viewReport(ViewReportForm form) {
+    public ViewReportView viewReport(ViewReportForm form) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public ModifyReportVO modifyReport(ModifyReportForm form) {
+    public ModifyReportView modifyReport(ModifyReportForm form) {
         // TODO Auto-generated method stub
         return null;
     }

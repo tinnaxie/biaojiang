@@ -167,4 +167,60 @@
     where report_id = #{reportId,jdbcType=BIGINT}
     order by node.position asc
   </select>
+  
+  <sql id="Query_Form">
+      <if test="reportId != null">
+        and report_id = #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="templateId != null">
+        and template_id = #{templateId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="reportName != null">
+        and report_name = #{reportName,jdbcType=VARCHAR}
+      </if>
+      <if test="creator != null">
+        and createor = #{creator,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifier != null">
+        and modifier = #{modifier,jdbcType=BIGINT}
+      </if>
+      <if test="modifyTime != null">
+        and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+        <if test="startTime != null">
+            and create_time >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and #{endTime} >= create_time
+        </if>
+  </sql>
+  
+  <select id="selectByCondition" parameterType="com.itinna.smalltool.web.form.SearchReportForm" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from report
+    <where>
+        <include refid="Query_Form" />
+    </where>
+    order by create_time desc
+    <if test="pagination != null">
+        limit #{pagination.fromRecord}, #{pagination.pageSize}
+    </if>
+  </select>
+
+  <select id="countByCondition" parameterType="com.itinna.smalltool.web.form.SearchReportForm" resultMap="int">
+    select 
+    <include refid="Base_Column_List" />
+    from report
+    <where>
+        <include refid="Query_Form" />
+    </where>
+  </select>
+
 </mapper>

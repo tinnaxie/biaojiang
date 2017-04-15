@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import com.itinna.smalltool.web.vo.LoginUserVO;
+import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
  * Http处理工具，注意：此工具仅限于web层使用
@@ -60,11 +60,11 @@ public class HttpUtils {
      * 
      * @return
      */
-    public static LoginUserVO getLoginUser() {
-        LoginUserVO user = null;
+    public static LoginUserView getLoginUser() {
+        LoginUserView user = null;
         Object loginUser = HttpUtils.getSessionAttribute(LOGIN_USER);
-        if (loginUser != null && loginUser instanceof LoginUserVO) {
-            user = (LoginUserVO) loginUser;
+        if (loginUser != null && loginUser instanceof LoginUserView) {
+            user = (LoginUserView) loginUser;
         }
         return user;
     }
@@ -74,7 +74,7 @@ public class HttpUtils {
      * 
      * @param user
      */
-    public static void setSessionUser(LoginUserVO user) {
+    public static void setSessionUser(LoginUserView user) {
         setSessionAttribute(LOGIN_USER, user);
     }
 
@@ -85,7 +85,7 @@ public class HttpUtils {
      */
     public static Long getLoginUserId() {
         Long userId = null;
-        LoginUserVO user = getLoginUser();
+        LoginUserView user = getLoginUser();
         if (user != null) {
             userId = user.getUserId();
         }

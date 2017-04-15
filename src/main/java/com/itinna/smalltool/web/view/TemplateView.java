@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
+package com.itinna.smalltool.web.view;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author tinna.xie
  * @date : 2017年4月2日 下午2:26:33
  */
-public class TemplateVO extends BaseVO {
+public class TemplateView extends BaseView {
 
     private Long templateId;
 
@@ -19,7 +19,7 @@ public class TemplateVO extends BaseVO {
 
     private String desc;
 
-    private List<NodeVO> nodes;
+    private List<NodeView> nodes;
 
     /**
      * @return the templateId
@@ -69,7 +69,7 @@ public class TemplateVO extends BaseVO {
     /**
      * @return the nodes
      */
-    public List<NodeVO> getNodes() {
+    public List<NodeView> getNodes() {
         return nodes;
     }
 
@@ -77,7 +77,7 @@ public class TemplateVO extends BaseVO {
      * @param nodes
      *            the nodes to set
      */
-    public void setNodes(List<NodeVO> nodes) {
+    public void setNodes(List<NodeView> nodes) {
         this.nodes = nodes;
     }
 

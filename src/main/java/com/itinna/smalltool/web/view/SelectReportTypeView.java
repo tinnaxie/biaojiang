@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
+package com.itinna.smalltool.web.view;
 
 import java.util.List;
 
@@ -11,14 +11,14 @@ import java.util.List;
  * @author tinna.xie
  * @date : 2017年4月2日 下午1:36:53
  */
-public class ReportTypeListVO extends BaseVO {
+public class SelectReportTypeView extends BaseView {
 
-    private List<ReportTypeVO> reportTypes;
+    private List<ReportTypeView> reportTypes;
 
     /**
      * @return the reportTypes
      */
-    public List<ReportTypeVO> getReportTypes() {
+    public List<ReportTypeView> getReportTypes() {
         return reportTypes;
     }
 
@@ -26,7 +26,7 @@ public class ReportTypeListVO extends BaseVO {
      * @param reportTypes
      *            the reportTypes to set
      */
-    public void setReportTypes(List<ReportTypeVO> reportTypes) {
+    public void setReportTypes(List<ReportTypeView> reportTypes) {
         this.reportTypes = reportTypes;
     }
 

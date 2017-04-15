@@ -3,7 +3,7 @@
  */
 package com.itinna.smalltool.service;
 
-import com.itinna.smalltool.web.vo.LoginUserVO;
+import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
  * non-javadoc
@@ -17,8 +17,8 @@ public interface UserService extends BaseSerivce {
 
     public Long createNewUser(String bizUserId);
 
-    public LoginUserVO getUser(Long userId);
+    public LoginUserView getUser(Long userId);
 
-    public LoginUserVO login(String bizUserId);
+    public LoginUserView login(String bizUserId);
 
 }

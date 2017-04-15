@@ -6,7 +6,7 @@ package com.itinna.smalltool.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.itinna.smalltool.service.UserService;
-import com.itinna.smalltool.web.vo.LoginUserVO;
+import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
  * non-javadoc
@@ -30,13 +30,13 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
     }
 
     @Override
-    public LoginUserVO getUser(Long userId) {
+    public LoginUserView getUser(Long userId) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public LoginUserVO login(String bizUserId) {
+    public LoginUserView login(String bizUserId) {
         // TODO Auto-generated method stub
         return null;
     }

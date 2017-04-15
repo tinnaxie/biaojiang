@@ -1,9 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
-
-import com.itinna.smalltool.dao.model.Report;
+package com.itinna.smalltool.web.view;
 
 /**
  * 视图模型对象：查看报表详情
@@ -11,14 +9,14 @@ import com.itinna.smalltool.dao.model.Report;
  * @author tinna.xie
  * @date : 2017年4月2日 下午1:36:53
  */
-public class SaveReportVO extends BaseVO {
+public class SaveReportView extends BaseView {
 
-    private Report report;
+    private ReportView report;
 
     /**
      * @return the report
      */
-    public Report getReport() {
+    public ReportView getReport() {
         return report;
     }
 
@@ -26,7 +24,8 @@ public class SaveReportVO extends BaseVO {
      * @param report
      *            the report to set
      */
-    public void setReport(Report report) {
+    public void setReport(ReportView report) {
         this.report = report;
     }
+
 }

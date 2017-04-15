@@ -189,7 +189,7 @@ public class Pagination {
      * 
      * @return the toPage
      */
-    public void computeCurrentPage() {
+    private void computeCurrentPage() {
         if (StringUtils.equals(ACTION_FIRST, this.action)) { // 跳转至首页
             this.currentPage = 1;
         } else if (StringUtils.equals(ACTION_PREV, this.action)) { // 跳转至上一页
@@ -305,7 +305,7 @@ public class Pagination {
      * 
      * @return the pageCount
      */
-    public void computePageNum() {
+    private void computePageNum() {
         this.pageCount = (this.recordCount % this.pageSize == 0) ? (this.recordCount / this.pageSize)
                 : ((this.recordCount / this.pageSize) + 1);
     }
@@ -328,7 +328,7 @@ public class Pagination {
      * 
      * @return the fromRecord
      */
-    public void computeFromRecord() {
+    private void computeFromRecord() {
         this.fromRecord = (this.currentPage - 1) * this.pageSize;
         this.fromRecord = (this.fromRecord < 0) ? 0 : this.fromRecord;
     }
@@ -351,7 +351,7 @@ public class Pagination {
      * 
      * @return the toRecord
      */
-    public void computeToRecord() {
+    private void computeToRecord() {
         this.toRecord = this.fromRecord + this.pageSize - 1;
         this.toRecord = (this.toRecord > this.recordCount) ? this.recordCount : this.toRecord;
     }

@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.itinna.smalltool.common.exception.ControllerException;
 import com.itinna.smalltool.common.utils.HttpUtils;
 import com.itinna.smalltool.service.ReportService;
 import com.itinna.smalltool.web.form.CreateReportForm;
@@ -20,12 +19,12 @@ import com.itinna.smalltool.web.form.SaveReportForm;
 import com.itinna.smalltool.web.form.SearchReportForm;
 import com.itinna.smalltool.web.form.SelectReportTypeForm;
 import com.itinna.smalltool.web.form.ViewReportForm;
-import com.itinna.smalltool.web.vo.CreateReportVO;
-import com.itinna.smalltool.web.vo.ModifyReportVO;
-import com.itinna.smalltool.web.vo.ReportTypeListVO;
-import com.itinna.smalltool.web.vo.SaveReportVO;
-import com.itinna.smalltool.web.vo.SearchReportListVO;
-import com.itinna.smalltool.web.vo.ViewReportVO;
+import com.itinna.smalltool.web.view.CreateReportView;
+import com.itinna.smalltool.web.view.ModifyReportView;
+import com.itinna.smalltool.web.view.SaveReportView;
+import com.itinna.smalltool.web.view.SearchReportView;
+import com.itinna.smalltool.web.view.SelectReportTypeView;
+import com.itinna.smalltool.web.view.ViewReportView;
 
 /**
  * @author tinna
@@ -47,17 +46,13 @@ public class ReportController extends BaseController {
     public String selectType(@ModelAttribute("selectReportTypeForm") SelectReportTypeForm form, BindingResult result,
             Model model) {
         // 设置用户id
-        Long userId = HttpUtils.getLoginUserId();
-        if (userId == null) {
-            throw new ControllerException("no user");
-        }
-        form.setUserId(userId);
+        form.setUserId(HttpUtils.getLoginUserId());
 
         // 执行业务
-        ReportTypeListVO vo = this.reportService.selectType(form);
+        SelectReportTypeView view = this.reportService.selectType(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_select_type";
     }
@@ -67,10 +62,10 @@ public class ReportController extends BaseController {
         // 表单验证
 
         // 执行业务
-        CreateReportVO vo = this.reportService.createReport(form);
+        CreateReportView view = this.reportService.createReport(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_create";
     }
@@ -78,14 +73,16 @@ public class ReportController extends BaseController {
     @RequestMapping("/save")
     public String save(@ModelAttribute("saveReportForm") SaveReportForm form, BindingResult result, Model model) {
         // 表单验证
+        // TODO
 
+        // 设置用户id
         form.setUserId(HttpUtils.getLoginUserId());
 
         // 执行业务
-        SaveReportVO vo = this.reportService.saveReport(form);
+        SaveReportView view = this.reportService.saveReport(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_view";
     }
@@ -95,11 +92,14 @@ public class ReportController extends BaseController {
         // 表单验证
         // TODO ...
 
+        // 设置用户id
+        form.setUserId(HttpUtils.getLoginUserId());
+
         // 业务执行
-        SearchReportListVO vo = this.reportService.searchReport(form);
+        SearchReportView view = this.reportService.searchReport(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_search";
     }
@@ -110,10 +110,10 @@ public class ReportController extends BaseController {
         // TODO ...
 
         // 业务执行
-        ViewReportVO vo = this.reportService.viewReport(form);
+        ViewReportView view = this.reportService.viewReport(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_view";
     }
@@ -124,10 +124,10 @@ public class ReportController extends BaseController {
         // TODO ...
 
         // 业务执行
-        ModifyReportVO vo = this.reportService.modifyReport(form);
+        ModifyReportView view = this.reportService.modifyReport(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_modify";
     }
@@ -138,10 +138,10 @@ public class ReportController extends BaseController {
         // TODO ...
 
         // 业务执行
-        boolean vo = this.reportService.deleteReport(form);
+        boolean view = this.reportService.deleteReport(form);
 
         // 设置返回数据
-        model.addAttribute("resultVO", vo);
+        model.addAttribute("resultView", view);
 
         return "report/report_delete";
     }

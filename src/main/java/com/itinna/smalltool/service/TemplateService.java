@@ -3,7 +3,7 @@
  */
 package com.itinna.smalltool.service;
 
-import com.itinna.smalltool.web.vo.TemplateVO;
+import com.itinna.smalltool.web.view.TemplateView;
 
 /**
  * 模版服务
@@ -13,5 +13,5 @@ import com.itinna.smalltool.web.vo.TemplateVO;
  */
 public interface TemplateService extends BaseSerivce {
 
-    public TemplateVO getTemplate(Long templateId);
+    public TemplateView getTemplate(Long templateId);
 }

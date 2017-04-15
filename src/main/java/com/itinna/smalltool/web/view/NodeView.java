@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
+package com.itinna.smalltool.web.view;
 
 /**
  * non-javadoc
@@ -9,7 +9,7 @@ package com.itinna.smalltool.web.vo;
  * @author tinna.xie
  * @date : 2017年4月10日 下午1:34:35
  */
-public class NodeVO extends BaseVO {
+public class NodeView extends BaseView {
 
     private Long nodeId;
 
@@ -21,7 +21,24 @@ public class NodeVO extends BaseVO {
 
     private Boolean isRequired;
 
-    private NodeTypeVO nodeType;
+    private Long nodeTypeId;
+
+    private NodeTypeView nodeType;
+
+    /**
+     * @return the nodeTypeId
+     */
+    public Long getNodeTypeId() {
+        return nodeTypeId;
+    }
+
+    /**
+     * @param nodeTypeId
+     *            the nodeTypeId to set
+     */
+    public void setNodeTypeId(Long nodeTypeId) {
+        this.nodeTypeId = nodeTypeId;
+    }
 
     /**
      * @return the nodeId
@@ -86,7 +103,7 @@ public class NodeVO extends BaseVO {
     /**
      * @return the nodeType
      */
-    public NodeTypeVO getNodeType() {
+    public NodeTypeView getNodeType() {
         return nodeType;
     }
 
@@ -94,7 +111,7 @@ public class NodeVO extends BaseVO {
      * @param nodeType
      *            the nodeType to set
      */
-    public void setNodeType(NodeTypeVO nodeType) {
+    public void setNodeType(NodeTypeView nodeType) {
         this.nodeType = nodeType;
     }
 

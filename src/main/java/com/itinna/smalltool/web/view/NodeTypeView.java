@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
+package com.itinna.smalltool.web.view;
 
 /**
  * non-javadoc
@@ -9,7 +9,7 @@ package com.itinna.smalltool.web.vo;
  * @author tinna.xie
  * @date : 2017年4月10日 下午1:37:05
  */
-public class NodeTypeVO extends BaseVO {
+public class NodeTypeView extends BaseView {
 
     private Long nodeTypeId;
 

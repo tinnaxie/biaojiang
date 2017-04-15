@@ -11,7 +11,7 @@ import com.itinna.smalltool.common.exception.ControllerException;
 import com.itinna.smalltool.common.utils.HttpUtils;
 import com.itinna.smalltool.common.utils.StringUtils;
 import com.itinna.smalltool.service.UserService;
-import com.itinna.smalltool.web.vo.LoginUserVO;
+import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
  * non-javadoc
@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
         }
 
         // 执行用户登录
-        LoginUserVO user = this.userService.login(bizUserId);
+        LoginUserView user = this.userService.login(bizUserId);
         if (user == null) {
             throw new ControllerException("no user");
         }

@@ -1,6 +1,9 @@
 package com.itinna.smalltool.dao.mapper;
 
+import java.util.List;
+
 import com.itinna.smalltool.dao.model.Report;
+import com.itinna.smalltool.web.form.SearchReportForm;
 
 public interface ReportMapper extends BaseMapper {
     /**
@@ -52,4 +55,8 @@ public interface ReportMapper extends BaseMapper {
     int updateByPrimaryKey(Report record);
 
     Report selectDetailByPK(long reportId);
+
+    List<Report> selectByCondition(SearchReportForm form);
+
+    int countByCondition(SearchReportForm form);
 }

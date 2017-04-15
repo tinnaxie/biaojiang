@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.vo;
+package com.itinna.smalltool.web.view;
 
 /**
  * non-javadoc
@@ -9,7 +9,7 @@ package com.itinna.smalltool.web.vo;
  * @author tinna.xie
  * @date : 2017年4月2日 下午2:45:27
  */
-public class LoginUserVO extends BaseVO {
+public class LoginUserView extends BaseView {
 
     private Long userId;
 
