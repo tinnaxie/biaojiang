@@ -4,17 +4,17 @@
 package com.itinna.smalltool.service;
 
 import com.itinna.smalltool.web.form.CreateReportForm;
+import com.itinna.smalltool.web.form.CreateSaveReportForm;
 import com.itinna.smalltool.web.form.DeleteReportForm;
 import com.itinna.smalltool.web.form.ModifyReportForm;
-import com.itinna.smalltool.web.form.SaveReportForm;
+import com.itinna.smalltool.web.form.ModifySaveReportForm;
 import com.itinna.smalltool.web.form.SearchReportForm;
 import com.itinna.smalltool.web.form.SelectReportTypeForm;
 import com.itinna.smalltool.web.form.ViewReportForm;
 import com.itinna.smalltool.web.view.CreateReportView;
 import com.itinna.smalltool.web.view.ModifyReportView;
-import com.itinna.smalltool.web.view.SelectReportTypeView;
-import com.itinna.smalltool.web.view.SaveReportView;
 import com.itinna.smalltool.web.view.SearchReportView;
+import com.itinna.smalltool.web.view.SelectReportTypeView;
 import com.itinna.smalltool.web.view.ViewReportView;
 
 /**
@@ -26,7 +26,7 @@ import com.itinna.smalltool.web.view.ViewReportView;
 public interface ReportService extends BaseSerivce {
 
     /**
-     * 新建报表
+     * 显示新建报表
      * 
      * @param CreateReportForm
      * @return CreateReportVO
@@ -34,13 +34,13 @@ public interface ReportService extends BaseSerivce {
     public CreateReportView createReport(CreateReportForm form);
 
     /**
-     * 保存报表
+     * 保存新建的报表
      * 
      * 
-     * @param SaveReportForm
+     * @param CreateSaveReportForm
      * @return SaveReportVO
      */
-    public SaveReportView saveReport(SaveReportForm form);
+    public ViewReportView createSaveReport(CreateSaveReportForm form);
 
     /**
      * 查找报表
@@ -67,12 +67,20 @@ public interface ReportService extends BaseSerivce {
     public ViewReportView viewReport(ViewReportForm form);
 
     /**
-     * 修改报表
+     * 显示被修改报表
      * 
      * @param ModifyReportForm
      * @return ModifyReportVO
      */
     public ModifyReportView modifyReport(ModifyReportForm form);
+
+    /**
+     * 保存已修改报表
+     * 
+     * @param form
+     * @return
+     */
+    public ViewReportView modifySaveReport(ModifySaveReportForm form);
 
     /**
      * 删除报表

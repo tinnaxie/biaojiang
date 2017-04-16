@@ -11,4 +11,20 @@ package com.itinna.smalltool.web.form;
  */
 public class ModifyReportForm extends BaseForm {
 
+    private Long reportId;
+
+    /**
+     * @return the reportId
+     */
+    public Long getReportId() {
+        return reportId;
+    }
+
+    /**
+     * @param reportId
+     *            the reportId to set
+     */
+    public void setReportId(Long reportId) {
+        this.reportId = reportId;
+    }
 }

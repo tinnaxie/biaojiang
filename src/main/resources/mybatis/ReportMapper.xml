@@ -154,7 +154,7 @@
     select last_insert_id() from report
   </select>
 
-  <select id="selectDetailByPK" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectDetailByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     <include refid="com.itinna.smalltool.dao.mapper.ReportNodeValueMapper.Base_Column_List" />
@@ -182,7 +182,7 @@
         and report_name = #{reportName,jdbcType=VARCHAR}
       </if>
       <if test="creator != null">
-        and createor = #{creator,jdbcType=BIGINT}
+        and creator = #{creator,jdbcType=BIGINT}
       </if>
       <if test="createTime != null">
         and create_time = #{createTime,jdbcType=TIMESTAMP}
@@ -193,12 +193,12 @@
       <if test="modifyTime != null">
         and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
       </if>
-        <if test="startTime != null">
-            and create_time >= #{startTime}
-        </if>
-        <if test="endTime != null">
-            and #{endTime} >= create_time
-        </if>
+      <if test="startTime != null">
+          and create_time >= #{startTime}
+      </if>
+      <if test="endTime != null">
+          and #{endTime} >= create_time
+      </if>
   </sql>
   
   <select id="selectByCondition" parameterType="com.itinna.smalltool.web.form.SearchReportForm" resultMap="BaseResultMap">

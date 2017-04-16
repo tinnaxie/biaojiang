@@ -11,4 +11,21 @@ package com.itinna.smalltool.web.view;
  */
 public class ModifyReportView extends BaseView {
 
+    private ReportView report;
+
+    /**
+     * @return the report
+     */
+    public ReportView getReport() {
+        return report;
+    }
+
+    /**
+     * @param report
+     *            the report to set
+     */
+    public void setReport(ReportView report) {
+        this.report = report;
+    }
+
 }

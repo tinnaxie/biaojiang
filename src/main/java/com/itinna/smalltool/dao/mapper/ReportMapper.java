@@ -54,7 +54,7 @@ public interface ReportMapper extends BaseMapper {
      */
     int updateByPrimaryKey(Report record);
 
-    Report selectDetailByPK(long reportId);
+    Report selectDetailByPrimaryKey(long reportId);
 
     List<Report> selectByCondition(SearchReportForm form);
 

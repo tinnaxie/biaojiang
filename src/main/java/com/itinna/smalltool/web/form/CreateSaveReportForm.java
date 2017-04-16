@@ -11,7 +11,7 @@ import com.itinna.smalltool.dao.model.Report;
  * @author tinna.xie
  * @date : 2017年4月2日 下午1:50:41
  */
-public class SaveReportForm extends BaseForm {
+public class CreateSaveReportForm extends BaseForm {
 
     private Long userId;
 

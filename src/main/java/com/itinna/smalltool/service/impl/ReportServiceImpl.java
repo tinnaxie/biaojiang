@@ -21,7 +21,6 @@ import com.itinna.smalltool.dao.mapper.AttachmentMapper;
 import com.itinna.smalltool.dao.mapper.ReportMapper;
 import com.itinna.smalltool.dao.mapper.ReportNodeValueMapper;
 import com.itinna.smalltool.dao.mapper.TemplateMapper;
-import com.itinna.smalltool.dao.mapper.UserMapper;
 import com.itinna.smalltool.dao.model.Attachment;
 import com.itinna.smalltool.dao.model.Node;
 import com.itinna.smalltool.dao.model.NodeType;
@@ -30,9 +29,10 @@ import com.itinna.smalltool.dao.model.ReportNodeValue;
 import com.itinna.smalltool.dao.model.Template;
 import com.itinna.smalltool.service.ReportService;
 import com.itinna.smalltool.web.form.CreateReportForm;
+import com.itinna.smalltool.web.form.CreateSaveReportForm;
 import com.itinna.smalltool.web.form.DeleteReportForm;
 import com.itinna.smalltool.web.form.ModifyReportForm;
-import com.itinna.smalltool.web.form.SaveReportForm;
+import com.itinna.smalltool.web.form.ModifySaveReportForm;
 import com.itinna.smalltool.web.form.SearchReportForm;
 import com.itinna.smalltool.web.form.SelectReportTypeForm;
 import com.itinna.smalltool.web.form.ViewReportForm;
@@ -44,7 +44,6 @@ import com.itinna.smalltool.web.view.NodeView;
 import com.itinna.smalltool.web.view.ReportNodeValueView;
 import com.itinna.smalltool.web.view.ReportTypeView;
 import com.itinna.smalltool.web.view.ReportView;
-import com.itinna.smalltool.web.view.SaveReportView;
 import com.itinna.smalltool.web.view.SearchReportView;
 import com.itinna.smalltool.web.view.SelectReportTypeView;
 import com.itinna.smalltool.web.view.TemplateView;
@@ -61,9 +60,6 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
     @Autowired
     private ReportMapper reportMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private TemplateMapper templateMapper;
@@ -128,7 +124,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
     @Override
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public SaveReportView saveReport(SaveReportForm form) {
+    public ViewReportView createSaveReport(CreateSaveReportForm form) {
         // insert report
         Report report = form.getReport();
         if (report == null) {
@@ -178,57 +174,14 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
         }
 
         // select report detail
-        report = this.reportMapper.selectDetailByPK(reportId);
+        report = this.reportMapper.selectDetailByPrimaryKey(reportId);
         if (report == null) {
             throw new ServiceException("no report");
         }
 
         // set return value
-        SaveReportView view = new SaveReportView();
-        ReportView reportView = new ReportView();
-        view.setReport(reportView);
-
-        reportView.setReportId(report.getReportId());
-        reportView.setReportName(report.getReportName());
-
-        List<ReportNodeValue> values = report.getNodeValues();
-        if (values != null && values.size() > 0) {
-            List<ReportNodeValueView> valueViews = new ArrayList<ReportNodeValueView>();
-            reportView.setValues(valueViews);
-
-            for (ReportNodeValue value : values) {
-                ReportNodeValueView valueView = new ReportNodeValueView();
-                valueViews.add(valueView);
-
-                valueView.setValue(value.getValue());
-
-                Node node = value.getNode();
-                if (node == null) {
-                    throw new ServiceException("no node");
-                }
-                NodeView nodeView = new NodeView();
-                valueView.setNode(nodeView);
-
-                nodeView.setNodeName(node.getNodeName());
-                nodeView.setNodeTypeId(node.getNodeTypeId());
-                nodeView.setParentId(node.getParentNodeId());
-                nodeView.setPosition(node.getPosition());
-
-                List<Attachment> attachments = value.getAttachments();
-                if (attachments != null && attachments.size() > 0) {
-                    List<AttachmentView> attachmentViews = new ArrayList<AttachmentView>();
-                    valueView.setAttachments(attachmentViews);
-
-                    for (Attachment attachment : attachments) {
-                        AttachmentView attachmentView = new AttachmentView();
-                        attachmentViews.add(attachmentView);
-
-                        attachmentView.setTypeId(attachment.getAttachementTypeId());
-                        attachmentView.setUrl(attachment.getUrl());
-                    }
-                }
-            }
-        }
+        ViewReportView view = new ViewReportView();
+        view.setReport(this.getReportView(report));
 
         return view;
     }
@@ -270,6 +223,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
         Pagination pagination = form.getPagination();
         if (pagination == null) {
             pagination = new Pagination(recordCount, pageSize);
+            form.setPagination(pagination);
         } else {
             pagination.setRecordCount(recordCount);
             pagination.setPageSize(pageSize);
@@ -341,20 +295,123 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
     @Override
     public ViewReportView viewReport(ViewReportForm form) {
-        // TODO Auto-generated method stub
-        return null;
+        // 获取报告
+        Report report = this.reportMapper.selectDetailByPrimaryKey(form.getReportId());
+        if (report == null) {
+            throw new ServiceException("no report");
+        }
+
+        // 设置返回值
+        ViewReportView view = new ViewReportView();
+        view.setReport(this.getReportView(report));
+
+        return view;
+    }
+
+    /**
+     * 将report详情对象转化为视图
+     * 
+     * @param report
+     * @return
+     */
+    private ReportView getReportView(Report report) {
+        ReportView reportView = new ReportView();
+        reportView.setReportId(report.getReportId());
+        reportView.setReportName(report.getReportName());
+
+        List<ReportNodeValue> values = report.getNodeValues();
+        if (values != null && values.size() > 0) {
+            List<ReportNodeValueView> valueViews = new ArrayList<ReportNodeValueView>();
+            reportView.setValues(valueViews);
+            for (ReportNodeValue value : values) {
+                ReportNodeValueView valueView = new ReportNodeValueView();
+                valueViews.add(valueView);
+                valueView.setValueId(value.getValueId());
+                valueView.setValue(value.getValue());
+
+                Node node = value.getNode();
+                if (node == null) {
+                    throw new ServiceException("no node");
+                }
+                NodeView nodeView = new NodeView();
+                valueView.setNode(nodeView);
+                nodeView.setNodeId(node.getNodeId());
+                nodeView.setNodeName(node.getNodeName());
+                nodeView.setNodeTypeId(node.getNodeTypeId());
+                nodeView.setParentId(node.getParentNodeId());
+                nodeView.setPosition(node.getPosition());
+
+                List<Attachment> attachments = value.getAttachments();
+                if (attachments != null && attachments.size() > 0) {
+                    List<AttachmentView> attachmentViews = new ArrayList<AttachmentView>();
+                    valueView.setAttachments(attachmentViews);
+                    for (Attachment attachment : attachments) {
+                        AttachmentView attachmentView = new AttachmentView();
+                        attachmentViews.add(attachmentView);
+                        attachmentView.setAttachmentId(attachment.getAttachmentId());
+                        attachmentView.setTypeId(attachment.getAttachementTypeId());
+                        attachmentView.setUrl(attachment.getUrl());
+                    }
+                }
+            }
+        }
+        return reportView;
     }
 
     @Override
     public ModifyReportView modifyReport(ModifyReportForm form) {
-        // TODO Auto-generated method stub
-        return null;
+        // get report detail
+        Report report = this.reportMapper.selectDetailByPrimaryKey(form.getReportId());
+        if (report == null) {
+            throw new ServiceException("no report");
+        }
+
+        // set return value
+        ReportView reportView = this.getReportView(report);
+        ModifyReportView view = new ModifyReportView();
+        view.setReport(reportView);
+        return view;
     }
 
     @Override
+    @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public ViewReportView modifySaveReport(ModifySaveReportForm form) {
+        // update report
+        Report report = form.getReport();
+        if (report == null) {
+            throw new ServiceException("no report");
+        }
+        report.setModifier(form.getUserId());
+        this.reportMapper.updateByPrimaryKeySelective(report);
+
+        // update report_node_value
+        List<ReportNodeValue> values = report.getNodeValues();
+        if (values != null && values.size() > 0) {
+            for (ReportNodeValue value : values) {
+                this.reportNodevalueMapper.updateByPrimaryKeySelective(value);
+
+                // update attachment
+                List<Attachment> attachments = value.getAttachments();
+                if (attachments != null && attachments.size() > 0) {
+                    for (Attachment attachment : attachments) {
+                        this.attachmentMapper.updateByPrimaryKeySelective(attachment);
+                    }
+                }
+            }
+        }
+
+        // set return value
+        ViewReportView view = new ViewReportView();
+        view.setReport(this.getReportView(report));
+
+        return view;
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public boolean deleteReport(DeleteReportForm form) {
-        // TODO Auto-generated method stub
-        return false;
+        this.reportMapper.deleteByPrimaryKey(form.getReportId());
+        return true;
     }
 
 }

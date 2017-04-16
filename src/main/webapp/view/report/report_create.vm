@@ -11,7 +11,7 @@
         <div id="content_box">
             <div id="top_box">
                 <div id="title_box"><label>表酱</label></div>
-                <div id="save_box">&nbsp;&nbsp;<a href="#springUrl("/report/save")">完成</a></div>
+                <div id="save_box">&nbsp;&nbsp;<a href="#springUrl("/report/create/save")">完成</a></div>
                 <div id="cancel_box"><a href="#springUrl("/index")">取消</a></div>
             </div>
             <div id="report_name_box">

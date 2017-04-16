@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.itinna.smalltool.common.utils.HttpUtils;
 import com.itinna.smalltool.service.ReportService;
 import com.itinna.smalltool.web.form.CreateReportForm;
+import com.itinna.smalltool.web.form.CreateSaveReportForm;
 import com.itinna.smalltool.web.form.DeleteReportForm;
 import com.itinna.smalltool.web.form.ModifyReportForm;
-import com.itinna.smalltool.web.form.SaveReportForm;
+import com.itinna.smalltool.web.form.ModifySaveReportForm;
 import com.itinna.smalltool.web.form.SearchReportForm;
 import com.itinna.smalltool.web.form.SelectReportTypeForm;
 import com.itinna.smalltool.web.form.ViewReportForm;
 import com.itinna.smalltool.web.view.CreateReportView;
 import com.itinna.smalltool.web.view.ModifyReportView;
-import com.itinna.smalltool.web.view.SaveReportView;
 import com.itinna.smalltool.web.view.SearchReportView;
 import com.itinna.smalltool.web.view.SelectReportTypeView;
 import com.itinna.smalltool.web.view.ViewReportView;
@@ -70,8 +70,9 @@ public class ReportController extends BaseController {
         return "report/report_create";
     }
 
-    @RequestMapping("/save")
-    public String save(@ModelAttribute("saveReportForm") SaveReportForm form, BindingResult result, Model model) {
+    @RequestMapping("/create/save")
+    public String createSave(@ModelAttribute("createSaveReportForm") CreateSaveReportForm form, BindingResult result,
+            Model model) {
         // 表单验证
         // TODO
 
@@ -79,7 +80,7 @@ public class ReportController extends BaseController {
         form.setUserId(HttpUtils.getLoginUserId());
 
         // 执行业务
-        SaveReportView view = this.reportService.saveReport(form);
+        ViewReportView view = this.reportService.createSaveReport(form);
 
         // 设置返回数据
         model.addAttribute("resultView", view);
@@ -121,7 +122,7 @@ public class ReportController extends BaseController {
     @RequestMapping("/modify")
     public String modify(@ModelAttribute("modifyReportForm") ModifyReportForm form, BindingResult result, Model model) {
         // 表单验证
-        // TODO ...
+        // TODO
 
         // 业务执行
         ModifyReportView view = this.reportService.modifyReport(form);
@@ -130,6 +131,24 @@ public class ReportController extends BaseController {
         model.addAttribute("resultView", view);
 
         return "report/report_modify";
+    }
+
+    @RequestMapping("/modify/save")
+    public String modifySave(@ModelAttribute("modifySaveReportForm") ModifySaveReportForm form, BindingResult result,
+            Model model) {
+        // 表单验证
+        // TODO
+
+        // 获取当前用户id
+        form.setUserId(HttpUtils.getLoginUserId());
+
+        // 业务执行
+        ViewReportView view = this.reportService.modifySaveReport(form);
+
+        // 设置返回数据
+        model.addAttribute("resultView", view);
+
+        return "report/report_view";
     }
 
     @RequestMapping("/delete")
