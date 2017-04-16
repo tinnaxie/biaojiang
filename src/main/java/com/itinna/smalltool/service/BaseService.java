@@ -1,5 +1,5 @@
 package com.itinna.smalltool.service;
 
-public interface BaseSerivce {
+public interface BaseService {
 
 }

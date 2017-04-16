@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.form;
+package com.itinna.smalltool.web.form.report;
+
+import com.itinna.smalltool.web.form.BaseForm;
 
 /**
  * 表单对象：新建报表

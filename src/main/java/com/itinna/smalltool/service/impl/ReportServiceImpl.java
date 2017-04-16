@@ -28,14 +28,14 @@ import com.itinna.smalltool.dao.model.Report;
 import com.itinna.smalltool.dao.model.ReportNodeValue;
 import com.itinna.smalltool.dao.model.Template;
 import com.itinna.smalltool.service.ReportService;
-import com.itinna.smalltool.web.form.CreateReportForm;
-import com.itinna.smalltool.web.form.CreateSaveReportForm;
-import com.itinna.smalltool.web.form.DeleteReportForm;
-import com.itinna.smalltool.web.form.ModifyReportForm;
-import com.itinna.smalltool.web.form.ModifySaveReportForm;
-import com.itinna.smalltool.web.form.SearchReportForm;
-import com.itinna.smalltool.web.form.SelectReportTypeForm;
-import com.itinna.smalltool.web.form.ViewReportForm;
+import com.itinna.smalltool.web.form.report.CreateReportForm;
+import com.itinna.smalltool.web.form.report.CreateSaveReportForm;
+import com.itinna.smalltool.web.form.report.DeleteReportForm;
+import com.itinna.smalltool.web.form.report.ModifyReportForm;
+import com.itinna.smalltool.web.form.report.ModifySaveReportForm;
+import com.itinna.smalltool.web.form.report.SearchReportForm;
+import com.itinna.smalltool.web.form.report.SelectReportTypeForm;
+import com.itinna.smalltool.web.form.report.ViewReportForm;
 import com.itinna.smalltool.web.view.AttachmentView;
 import com.itinna.smalltool.web.view.CreateReportView;
 import com.itinna.smalltool.web.view.ModifyReportView;
@@ -71,7 +71,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
     private AttachmentMapper attachmentMapper;
 
     @Override
-    public CreateReportView createReport(CreateReportForm form) {
+    public CreateReportView create(CreateReportForm form) {
         // 获取模版
         Long templateId = form.getTemplateId();
         if (templateId == null) {
@@ -124,7 +124,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
     @Override
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public ViewReportView createSaveReport(CreateSaveReportForm form) {
+    public ViewReportView createSave(CreateSaveReportForm form) {
         // insert report
         Report report = form.getReport();
         if (report == null) {
@@ -210,7 +210,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
     }
 
     @Override
-    public SearchReportView searchReport(SearchReportForm form) {
+    public SearchReportView search(SearchReportForm form) {
         // select reports by condition
         Long userId = form.getUserId();
         if (userId == null) {
@@ -294,7 +294,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
     }
 
     @Override
-    public ViewReportView viewReport(ViewReportForm form) {
+    public ViewReportView view(ViewReportForm form) {
         // 获取报告
         Report report = this.reportMapper.selectDetailByPrimaryKey(form.getReportId());
         if (report == null) {
@@ -359,7 +359,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
     }
 
     @Override
-    public ModifyReportView modifyReport(ModifyReportForm form) {
+    public ModifyReportView modify(ModifyReportForm form) {
         // get report detail
         Report report = this.reportMapper.selectDetailByPrimaryKey(form.getReportId());
         if (report == null) {
@@ -375,7 +375,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
     @Override
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public ViewReportView modifySaveReport(ModifySaveReportForm form) {
+    public ViewReportView modifySave(ModifySaveReportForm form) {
         // update report
         Report report = form.getReport();
         if (report == null) {
@@ -409,7 +409,7 @@ public class ReportServiceImpl extends BaseServiceImpl implements ReportService 
 
     @Override
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public boolean deleteReport(DeleteReportForm form) {
+    public boolean delete(DeleteReportForm form) {
         this.reportMapper.deleteByPrimaryKey(form.getReportId());
         return true;
     }

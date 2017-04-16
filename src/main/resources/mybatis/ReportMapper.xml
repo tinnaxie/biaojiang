@@ -201,7 +201,7 @@
       </if>
   </sql>
   
-  <select id="selectByCondition" parameterType="com.itinna.smalltool.web.form.SearchReportForm" resultMap="BaseResultMap">
+  <select id="selectByCondition" parameterType="com.itinna.smalltool.web.form.report.SearchReportForm" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from report
@@ -214,7 +214,7 @@
     </if>
   </select>
 
-  <select id="countByCondition" parameterType="com.itinna.smalltool.web.form.SearchReportForm" resultMap="int">
+  <select id="countByCondition" parameterType="com.itinna.smalltool.web.form.report.SearchReportForm" resultMap="int">
     select 
     <include refid="Base_Column_List" />
     from report

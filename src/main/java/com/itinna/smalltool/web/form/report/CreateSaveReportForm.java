@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.form;
+package com.itinna.smalltool.web.form.report;
 
 import com.itinna.smalltool.dao.model.Report;
+import com.itinna.smalltool.web.form.BaseForm;
 
 /**
  * 表单对象：查看报表详情

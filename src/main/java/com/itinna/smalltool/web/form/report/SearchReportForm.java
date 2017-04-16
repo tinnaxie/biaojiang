@@ -1,9 +1,11 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.form;
+package com.itinna.smalltool.web.form.report;
 
 import java.util.Date;
+
+import com.itinna.smalltool.web.form.BaseForm;
 
 /**
  * 表单对象：查找报表
@@ -22,6 +24,23 @@ public class SearchReportForm extends BaseForm {
     private String startTime;
 
     private String endTime;
+
+    private String reportName;
+
+    /**
+     * @return the reportName
+     */
+    public String getReportName() {
+        return reportName;
+    }
+
+    /**
+     * @param reportName
+     *            the reportName to set
+     */
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
 
     /**
      * @return the startTime

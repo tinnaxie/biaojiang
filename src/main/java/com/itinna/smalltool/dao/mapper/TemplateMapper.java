@@ -3,7 +3,7 @@ package com.itinna.smalltool.dao.mapper;
 import java.util.List;
 
 import com.itinna.smalltool.dao.model.Template;
-import com.itinna.smalltool.web.form.SelectReportTypeForm;
+import com.itinna.smalltool.web.form.report.SelectReportTypeForm;
 
 public interface TemplateMapper extends BaseMapper {
     /**

@@ -34,7 +34,7 @@
     where template_id = #{templateId,jdbcType=BIGINT}
   </select>
 
-  <select id="selectWritableByUserId" parameterType="com.itinna.smalltool.web.form.SelectReportTypeForm" resultMap="BaseResultMap">
+  <select id="selectWritableByUserId" parameterType="com.itinna.smalltool.web.form.report.SelectReportTypeForm" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from template

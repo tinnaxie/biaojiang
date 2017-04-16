@@ -1,15 +1,17 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.form;
+package com.itinna.smalltool.web.form.report;
+
+import com.itinna.smalltool.web.form.BaseForm;
 
 /**
- * 表单对象：删除报表
+ * 表单对象：修改报表
  *
  * @author tinna.xie
  * @date : 2017年4月2日 下午1:50:41
  */
-public class DeleteReportForm extends BaseForm {
+public class ModifyReportForm extends BaseForm {
 
     private Long reportId;
 
@@ -27,5 +29,4 @@ public class DeleteReportForm extends BaseForm {
     public void setReportId(Long reportId) {
         this.reportId = reportId;
     }
-
 }

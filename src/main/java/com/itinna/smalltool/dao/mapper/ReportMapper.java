@@ -3,7 +3,7 @@ package com.itinna.smalltool.dao.mapper;
 import java.util.List;
 
 import com.itinna.smalltool.dao.model.Report;
-import com.itinna.smalltool.web.form.SearchReportForm;
+import com.itinna.smalltool.web.form.report.SearchReportForm;
 
 public interface ReportMapper extends BaseMapper {
     /**

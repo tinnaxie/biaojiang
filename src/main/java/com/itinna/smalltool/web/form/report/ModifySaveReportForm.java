@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.itinna.smalltool.web.form;
+package com.itinna.smalltool.web.form.report;
 
 import com.itinna.smalltool.dao.model.Report;
+import com.itinna.smalltool.web.form.BaseForm;
 
 /**
  * non-javadoc

@@ -11,7 +11,7 @@ import com.itinna.smalltool.web.view.LoginUserView;
  * @author tinna.xie
  * @date : 2017年4月2日 下午3:08:42
  */
-public interface UserService extends BaseSerivce {
+public interface UserService extends BaseService {
 
     public Long getUserIdByBizUserId(String bizUserId);
 

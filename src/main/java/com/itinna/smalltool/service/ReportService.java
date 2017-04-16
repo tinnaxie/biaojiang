@@ -3,14 +3,14 @@
  */
 package com.itinna.smalltool.service;
 
-import com.itinna.smalltool.web.form.CreateReportForm;
-import com.itinna.smalltool.web.form.CreateSaveReportForm;
-import com.itinna.smalltool.web.form.DeleteReportForm;
-import com.itinna.smalltool.web.form.ModifyReportForm;
-import com.itinna.smalltool.web.form.ModifySaveReportForm;
-import com.itinna.smalltool.web.form.SearchReportForm;
-import com.itinna.smalltool.web.form.SelectReportTypeForm;
-import com.itinna.smalltool.web.form.ViewReportForm;
+import com.itinna.smalltool.web.form.report.CreateReportForm;
+import com.itinna.smalltool.web.form.report.CreateSaveReportForm;
+import com.itinna.smalltool.web.form.report.DeleteReportForm;
+import com.itinna.smalltool.web.form.report.ModifyReportForm;
+import com.itinna.smalltool.web.form.report.ModifySaveReportForm;
+import com.itinna.smalltool.web.form.report.SearchReportForm;
+import com.itinna.smalltool.web.form.report.SelectReportTypeForm;
+import com.itinna.smalltool.web.form.report.ViewReportForm;
 import com.itinna.smalltool.web.view.CreateReportView;
 import com.itinna.smalltool.web.view.ModifyReportView;
 import com.itinna.smalltool.web.view.SearchReportView;
@@ -23,7 +23,7 @@ import com.itinna.smalltool.web.view.ViewReportView;
  * @author tinna.xie
  * @date : 2017年4月2日 下午1:17:04
  */
-public interface ReportService extends BaseSerivce {
+public interface ReportService extends BaseService {
 
     /**
      * 显示新建报表
@@ -31,7 +31,7 @@ public interface ReportService extends BaseSerivce {
      * @param CreateReportForm
      * @return CreateReportVO
      */
-    public CreateReportView createReport(CreateReportForm form);
+    public CreateReportView create(CreateReportForm form);
 
     /**
      * 保存新建的报表
@@ -40,7 +40,7 @@ public interface ReportService extends BaseSerivce {
      * @param CreateSaveReportForm
      * @return SaveReportVO
      */
-    public ViewReportView createSaveReport(CreateSaveReportForm form);
+    public ViewReportView createSave(CreateSaveReportForm form);
 
     /**
      * 查找报表
@@ -48,7 +48,7 @@ public interface ReportService extends BaseSerivce {
      * @param SearchReportForm
      * @return SearchReportListVO
      */
-    public SearchReportView searchReport(SearchReportForm form);
+    public SearchReportView search(SearchReportForm form);
 
     /**
      * 选择报表类型
@@ -64,7 +64,7 @@ public interface ReportService extends BaseSerivce {
      * @param ViewReportForm
      * @return ViewReportVO
      */
-    public ViewReportView viewReport(ViewReportForm form);
+    public ViewReportView view(ViewReportForm form);
 
     /**
      * 显示被修改报表
@@ -72,7 +72,7 @@ public interface ReportService extends BaseSerivce {
      * @param ModifyReportForm
      * @return ModifyReportVO
      */
-    public ModifyReportView modifyReport(ModifyReportForm form);
+    public ModifyReportView modify(ModifyReportForm form);
 
     /**
      * 保存已修改报表
@@ -80,7 +80,7 @@ public interface ReportService extends BaseSerivce {
      * @param form
      * @return
      */
-    public ViewReportView modifySaveReport(ModifySaveReportForm form);
+    public ViewReportView modifySave(ModifySaveReportForm form);
 
     /**
      * 删除报表
@@ -88,5 +88,5 @@ public interface ReportService extends BaseSerivce {
      * @param DeleteReportForm
      * @return boolean true-成功; false-失败;
      */
-    public boolean deleteReport(DeleteReportForm form);
+    public boolean delete(DeleteReportForm form);
 }
