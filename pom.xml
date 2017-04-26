@@ -203,7 +203,7 @@
         <plugins>
             <!-- mybatis自动生成器 -->
             <!-- mvn mybatis-generator:generate -->
-            <!--
+<!--  
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -234,7 +234,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            -->
+-->
         </plugins>
     </build>
 

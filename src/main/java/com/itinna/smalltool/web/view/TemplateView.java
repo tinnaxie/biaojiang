@@ -13,57 +13,57 @@ import java.util.List;
  */
 public class TemplateView extends BaseView {
 
-    private Long templateId;
+    private String id;
 
-    private String templateName;
+    private String name;
 
-    private String desc;
+    private String description;
 
     private List<NodeView> nodes;
 
     /**
-     * @return the templateId
+     * @return the id
      */
-    public Long getTemplateId() {
-        return templateId;
+    public String getId() {
+        return id;
     }
 
     /**
-     * @param templateId
-     *            the templateId to set
+     * @param id
+     *            the id to set
      */
-    public void setTemplateId(Long templateId) {
-        this.templateId = templateId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
-     * @return the templateName
+     * @return the name
      */
-    public String getTemplateName() {
-        return templateName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param templateName
-     *            the templateName to set
+     * @param name
+     *            the name to set
      */
-    public void setTemplateName(String templateName) {
-        this.templateName = templateName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @return the desc
+     * @return the description
      */
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param desc
-     *            the desc to set
+     * @param description
+     *            the description to set
      */
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

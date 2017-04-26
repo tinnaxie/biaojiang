@@ -83,8 +83,8 @@ public class HttpUtils {
      * 
      * @return
      */
-    public static Long getLoginUserId() {
-        Long userId = null;
+    public static String getLoginUserId() {
+        String userId = null;
         LoginUserView user = getLoginUser();
         if (user != null) {
             userId = user.getUserId();

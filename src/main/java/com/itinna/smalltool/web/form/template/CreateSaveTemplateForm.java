@@ -3,6 +3,8 @@
  */
 package com.itinna.smalltool.web.form.template;
 
+import java.util.List;
+
 import com.itinna.smalltool.dao.model.Template;
 import com.itinna.smalltool.web.form.BaseForm;
 
@@ -14,23 +16,40 @@ import com.itinna.smalltool.web.form.BaseForm;
  */
 public class CreateSaveTemplateForm extends BaseForm {
 
-    private Long userId;
-
     private Template template;
 
+    private List<String> adminIds;
+
+    private List<String> reporterIds;
+
     /**
-     * @return the userId
+     * @return the adminIds
      */
-    public Long getUserId() {
-        return userId;
+    public List<String> getAdminIds() {
+        return adminIds;
     }
 
     /**
-     * @param userId
-     *            the userId to set
+     * @param adminIds
+     *            the adminIds to set
      */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setAdminIds(List<String> adminIds) {
+        this.adminIds = adminIds;
+    }
+
+    /**
+     * @return the reporterIds
+     */
+    public List<String> getReporterIds() {
+        return reporterIds;
+    }
+
+    /**
+     * @param reporterIds
+     *            the reporterIds to set
+     */
+    public void setReporterIds(List<String> reporterIds) {
+        this.reporterIds = reporterIds;
     }
 
     /**

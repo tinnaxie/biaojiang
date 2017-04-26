@@ -55,8 +55,8 @@ public class LoginController extends BaseController {
 
     @RequestMapping("/logout")
     public String logout() {
-        Long userId = HttpUtils.getLoginUserId();
-        if (userId != null) {
+        String userId = HttpUtils.getLoginUserId();
+        if (StringUtils.isNotEmpty(userId)) {
             HttpUtils.removeLoginUser();
         }
         return "logout";

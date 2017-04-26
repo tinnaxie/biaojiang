@@ -3,6 +3,8 @@
  */
 package com.itinna.smalltool.web.view;
 
+import java.util.List;
+
 /**
  * non-javadoc
  *
@@ -11,54 +13,43 @@ package com.itinna.smalltool.web.view;
  */
 public class NodeView extends BaseView {
 
-    private Long nodeId;
+    private String id;
 
-    private Long parentId;
+    private String parentId;
 
-    private String nodeName;
+    private String name;
 
     private int position;
 
-    private Boolean isRequired;
+    private String isRequired;
 
-    private Long nodeTypeId;
+    private Integer nodeTypeId;
 
     private NodeTypeView nodeType;
 
+    private String hasAttachment;
+
+    private List<NodeView> subNodes;
+
     /**
-     * @return the nodeTypeId
+     * @return the id
      */
-    public Long getNodeTypeId() {
-        return nodeTypeId;
+    public String getId() {
+        return id;
     }
 
     /**
-     * @param nodeTypeId
-     *            the nodeTypeId to set
+     * @param id
+     *            the id to set
      */
-    public void setNodeTypeId(Long nodeTypeId) {
-        this.nodeTypeId = nodeTypeId;
-    }
-
-    /**
-     * @return the nodeId
-     */
-    public Long getNodeId() {
-        return nodeId;
-    }
-
-    /**
-     * @param nodeId
-     *            the nodeId to set
-     */
-    public void setNodeId(Long nodeId) {
-        this.nodeId = nodeId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
      * @return the parentId
      */
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
@@ -66,29 +57,44 @@ public class NodeView extends BaseView {
      * @param parentId
      *            the parentId to set
      */
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
     /**
-     * @return the nodeName
+     * @return the name
      */
-    public String getNodeName() {
-        return nodeName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param nodeName
-     *            the nodeName to set
+     * @param name
+     *            the name to set
      */
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the position
+     */
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     * @param position
+     *            the position to set
+     */
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     /**
      * @return the isRequired
      */
-    public Boolean getIsRequired() {
+    public String getIsRequired() {
         return isRequired;
     }
 
@@ -96,8 +102,23 @@ public class NodeView extends BaseView {
      * @param isRequired
      *            the isRequired to set
      */
-    public void setIsRequired(Boolean isRequired) {
+    public void setIsRequired(String isRequired) {
         this.isRequired = isRequired;
+    }
+
+    /**
+     * @return the nodeTypeId
+     */
+    public Integer getNodeTypeId() {
+        return nodeTypeId;
+    }
+
+    /**
+     * @param nodeTypeId
+     *            the nodeTypeId to set
+     */
+    public void setNodeTypeId(Integer nodeTypeId) {
+        this.nodeTypeId = nodeTypeId;
     }
 
     /**
@@ -116,18 +137,33 @@ public class NodeView extends BaseView {
     }
 
     /**
-     * @return the position
+     * @return the hasAttachment
      */
-    public int getPosition() {
-        return position;
+    public String getHasAttachment() {
+        return hasAttachment;
     }
 
     /**
-     * @param position
-     *            the position to set
+     * @param hasAttachment
+     *            the hasAttachment to set
      */
-    public void setPosition(int position) {
-        this.position = position;
+    public void setHasAttachment(String hasAttachment) {
+        this.hasAttachment = hasAttachment;
+    }
+
+    /**
+     * @return the subNodes
+     */
+    public List<NodeView> getSubNodes() {
+        return subNodes;
+    }
+
+    /**
+     * @param subNodes
+     *            the subNodes to set
+     */
+    public void setSubNodes(List<NodeView> subNodes) {
+        this.subNodes = subNodes;
     }
 
 }

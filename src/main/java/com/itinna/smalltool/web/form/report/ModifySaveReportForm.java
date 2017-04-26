@@ -14,24 +14,7 @@ import com.itinna.smalltool.web.form.BaseForm;
  */
 public class ModifySaveReportForm extends BaseForm {
 
-    private Long userId;
-
     private Report report;
-
-    /**
-     * @return the userId
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId
-     *            the userId to set
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     /**
      * @return the report

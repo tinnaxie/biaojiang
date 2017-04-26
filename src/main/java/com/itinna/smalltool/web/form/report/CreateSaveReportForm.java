@@ -14,8 +14,6 @@ import com.itinna.smalltool.web.form.BaseForm;
  */
 public class CreateSaveReportForm extends BaseForm {
 
-    private Long userId;
-
     private String userName;
 
     private Long templateId;
@@ -52,21 +50,6 @@ public class CreateSaveReportForm extends BaseForm {
      */
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
-    }
-
-    /**
-     * @return the userId
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId
-     *            the userId to set
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     /**

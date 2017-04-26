@@ -11,12 +11,12 @@ package com.itinna.smalltool.web.view;
  */
 public class LoginUserView extends BaseView {
 
-    private Long userId;
+    private String userId;
 
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -24,7 +24,7 @@ public class LoginUserView extends BaseView {
      * @param userId
      *            the userId to set
      */
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

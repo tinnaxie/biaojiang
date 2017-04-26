@@ -32,7 +32,8 @@ public class JdbcConection {
     }
 
     public static void main(String[] args) {
-        getConnection();
+        // getConnection();
+
     }
 
 }

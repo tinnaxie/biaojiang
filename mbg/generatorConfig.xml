@@ -36,81 +36,19 @@
       <property name="exampleMethodVisibility" value="private" />
       <property name="rootInterface" value="com.itinna.smalltool.dao.mapper.BaseMapper" />
     </javaClientGenerator>
-
-<!--
-    <table tableName="user" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="user_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="app_type" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="app_type_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="user_app" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="user_app_id" javaType="java.lang.Long" />
-        <columnOverride column="user_id" javaType="java.lang.Long" />
-        <columnOverride column="app_type_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="template" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="template_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="user_template" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="user_template_id" javaType="java.lang.Long" />
-        <columnOverride column="user_id" javaType="java.lang.Long" />
-        <columnOverride column="template_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="node" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="node_id" javaType="java.lang.Long" />
-        <columnOverride column="template_id" javaType="java.lang.Long" />
-        <columnOverride column="node_type_id" javaType="java.lang.Long" />
-        <columnOverride column="parent_node_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="node_type" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="node_type_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="report" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="report_id" javaType="java.lang.Long" />
-        <columnOverride column="template_id" javaType="java.lang.Long" />
-        <columnOverride column="user_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="report_node_value" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="value_id" javaType="java.lang.Long" />
-        <columnOverride column="report_id" javaType="java.lang.Long" />
-        <columnOverride column="node_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="attachment" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="attachment_id" javaType="java.lang.Long" />
-        <columnOverride column="report_id" javaType="java.lang.Long" />
-        <columnOverride column="attachment_type_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
-    <table tableName="attachment_type" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="attachment_type_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
+<!--  
+    <table tableName="user" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="app_type" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="user_app" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="template" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="user_template" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="node" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="node_type" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="report" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="report_value" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="attachment" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="attachment_type" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
+    <table tableName="configuration" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" ></table>
 -->
-    <table tableName="configuration" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" >
-        <columnOverride column="config_id" javaType="java.lang.Long" />
-        <columnOverride column="creator" javaType="java.lang.Long" />
-        <columnOverride column="modifier" javaType="java.lang.Long" />
-    </table>
   </context>
 </generatorConfiguration>

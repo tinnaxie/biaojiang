@@ -15,8 +15,6 @@ import com.itinna.smalltool.web.form.BaseForm;
  */
 public class SearchReportForm extends BaseForm {
 
-    private Long userId;
-
     private Long templateId;
 
     private Date date;
@@ -72,21 +70,6 @@ public class SearchReportForm extends BaseForm {
      */
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    /**
-     * @return the userId
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId
-     *            the userId to set
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     /**

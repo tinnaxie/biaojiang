@@ -9,7 +9,6 @@ import com.itinna.smalltool.web.form.template.ModifySaveTemplateForm;
 import com.itinna.smalltool.web.form.template.ModifyTemplateForm;
 import com.itinna.smalltool.web.form.template.SearchTemplateForm;
 import com.itinna.smalltool.web.form.template.ViewTemplateForm;
-import com.itinna.smalltool.web.view.DeleteTemplateView;
 import com.itinna.smalltool.web.view.ModifyTemplateView;
 import com.itinna.smalltool.web.view.SearchTemplateView;
 import com.itinna.smalltool.web.view.ViewTemplateView;
@@ -22,16 +21,52 @@ import com.itinna.smalltool.web.view.ViewTemplateView;
  */
 public interface TemplateService extends BaseService {
 
+    /**
+     * 保存新建的模版
+     * 
+     * @param form
+     * @return
+     */
     ViewTemplateView createSave(CreateSaveTemplateForm form);
 
+    /**
+     * 修改模版
+     * 
+     * @param form
+     * @return
+     */
     ModifyTemplateView modify(ModifyTemplateForm form);
 
+    /**
+     * 保存已修改的模版
+     * 
+     * @param form
+     * @return
+     */
     ViewTemplateView modifySave(ModifySaveTemplateForm form);
 
+    /**
+     * 搜索模版
+     * 
+     * @param form
+     * @return
+     */
     SearchTemplateView search(SearchTemplateForm form);
 
+    /**
+     * 查看模版详情
+     * 
+     * @param form
+     * @return
+     */
     ViewTemplateView view(ViewTemplateForm form);
 
-    DeleteTemplateView delete(DeleteTemplateForm form);
+    /**
+     * 删除模版
+     * 
+     * @param form
+     * @return
+     */
+    boolean delete(DeleteTemplateForm form);
 
 }
