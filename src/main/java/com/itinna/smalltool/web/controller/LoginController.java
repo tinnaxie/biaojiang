@@ -5,12 +5,16 @@ package com.itinna.smalltool.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itinna.smalltool.common.exception.ControllerException;
 import com.itinna.smalltool.common.utils.HttpUtils;
 import com.itinna.smalltool.common.utils.StringUtils;
 import com.itinna.smalltool.service.UserService;
+import com.itinna.smalltool.web.form.user.LoginForm;
 import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
@@ -31,26 +35,18 @@ public class LoginController extends BaseController {
      * @return
      */
     @RequestMapping("/login")
-    public String login() {
-        // 验证业务系统用户id
-        String bizUserId = this.getBizUserId();
-        if (StringUtils.isEmpty(bizUserId)) {
-            // 如果业务系统id不存在则发生异常
-            throw new ControllerException("no bizUserId");
-        }
+    public String login(@ModelAttribute("loginForm") LoginForm form, BindingResult result, Model model) {
+        // 表单验证
+        // TODO
 
         // 执行用户登录
-        LoginUserView user = this.userService.login(bizUserId);
+        LoginUserView user = this.userService.login(form);
         if (user == null) {
             throw new ControllerException("no user");
         }
         HttpUtils.setSessionUser(user);
 
         return "index";
-    }
-
-    private String getBizUserId() {
-        return "123456";
     }
 
     @RequestMapping("/logout")

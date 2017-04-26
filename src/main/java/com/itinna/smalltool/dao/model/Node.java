@@ -3,7 +3,7 @@ package com.itinna.smalltool.dao.model;
 import java.util.Date;
 import java.util.List;
 
-public class Node extends BaseEntity {
+public class Node extends BaseEntity implements Comparable<Node> {
 
     private List<Node> subNodes;
 
@@ -395,5 +395,11 @@ public class Node extends BaseEntity {
      */
     public void setSubNodes(List<Node> subNodes) {
         this.subNodes = subNodes;
+    }
+
+    @Override
+    public int compareTo(Node node) {
+        int otherPosition = node.getPosition();
+        return this.position.compareTo(otherPosition);
     }
 }

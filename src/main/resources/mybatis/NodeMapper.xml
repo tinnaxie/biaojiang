@@ -195,4 +195,11 @@
     from node
     where template_id = #{templateId,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from node
+    where parent_id = #{parentId,jdbcType=VARCHAR}
+  </select>
 </mapper>

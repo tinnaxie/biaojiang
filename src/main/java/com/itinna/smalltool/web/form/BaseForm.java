@@ -12,7 +12,7 @@ import com.itinna.smalltool.common.utils.StringUtils;
  */
 public abstract class BaseForm {
 
-    private String userId;
+    private String loginUserId;
 
     private Pagination pagination;
 
@@ -24,16 +24,16 @@ public abstract class BaseForm {
     /**
      * @return the userId
      */
-    public String getUserId() {
-        return userId;
+    public String getLoginUserId() {
+        return loginUserId;
     }
 
     /**
      * @param userId
      *            the userId to set
      */
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setLoginUserId(String userId) {
+        this.loginUserId = userId;
     }
 
     /**

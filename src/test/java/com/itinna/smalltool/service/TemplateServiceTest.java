@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import com.itinna.smalltool.dao.model.Node;
 import com.itinna.smalltool.dao.model.Template;
@@ -34,6 +35,7 @@ public class TemplateServiceTest {
         System.out.println("1. create template success");
 
         view = this.templateService.modifySave(this.preModifySave(view));
+        this.assertModify(view);
         System.out.println(view.toString());
         System.out.println("2. modify template success");
 
@@ -166,7 +168,7 @@ public class TemplateServiceTest {
         node.setIsRequired("0");
         node.setHasAttachment("0");
 
-        form.setUserId("1");
+        form.setLoginUserId("1");
 
         List<String> admins = new ArrayList<String>();
         form.setAdminIds(admins);
@@ -188,14 +190,14 @@ public class TemplateServiceTest {
 
         TemplateView templateView = view.getTemplate();
         template.setId(templateView.getId());
-        template.setName(templateView.getName());
-        template.setDescription(templateView.getDescription());
+        template.setName("模版名称已修改");
+        template.setDescription("模版描述已修改");
 
         Node topNode = this.copyNodes(templateView.getNodes(), null);
         if (topNode != null) {
             template.setNodes(topNode.getSubNodes());
         }
-        form.setUserId("2");
+        form.setLoginUserId("2");
         return form;
     }
 
@@ -227,18 +229,57 @@ public class TemplateServiceTest {
     }
 
     private void preNode(Node node) {
-        if (StringUtils.equals("项目名称：", node.getName())) {
-            node.setName("Project name");
+        switch (node.getPosition()) {
+        case 0:// modify top node
+            node.setName("顶节点名已修改");
             node.setHasAttachment("1");
             node.setIsRequired("0");
             node.setNodeTypeId(3);
             node.setPosition(12);
-        } else if (StringUtils.equals("现场整洁干净", node.getName())) {
-            node.setName("Project name");
+            break;
+        case 1:// modify sub node
+            node.setName("子节点名已修改");
             node.setHasAttachment("1");
             node.setIsRequired("0");
-            node.setNodeTypeId(4);
+            node.setNodeTypeId(2);
             node.setPosition(13);
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void assertModify(ViewTemplateView view) {
+        TemplateView template = view.getTemplate();
+        Assert.notNull(template);
+        Assert.isTrue(StringUtils.equals("模版名称已修改", template.getName()));
+        Assert.isTrue(StringUtils.equals("模版描述已修改", template.getDescription()));
+
+        List<NodeView> nodes = template.getNodes();
+        Assert.notNull(nodes);
+        for (NodeView node : nodes) {
+            this.assertNode(node);
+        }
+    }
+
+    private void assertNode(NodeView node) {
+        switch (node.getPosition()) {
+        case 0:// modify top node
+            Assert.isTrue(StringUtils.equals("顶节点名已修改", node.getName()));
+            Assert.isTrue(StringUtils.equals("1", node.getHasAttachment()));
+            Assert.isTrue(StringUtils.equals("0", node.getIsRequired()));
+            Assert.isTrue(3 == node.getNodeTypeId());
+            Assert.isTrue(12 == node.getPosition());
+            break;
+        case 1:// modify sub node
+            Assert.isTrue(StringUtils.equals("子节点名已修改", node.getName()));
+            Assert.isTrue(StringUtils.equals("1", node.getHasAttachment()));
+            Assert.isTrue(StringUtils.equals("0", node.getIsRequired()));
+            Assert.isTrue(2 == node.getNodeTypeId());
+            Assert.isTrue(13 == node.getPosition());
+            break;
+        default:
+            break;
         }
     }
 

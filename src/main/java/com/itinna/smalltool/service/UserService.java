@@ -3,6 +3,7 @@
  */
 package com.itinna.smalltool.service;
 
+import com.itinna.smalltool.web.form.user.LoginForm;
 import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
@@ -13,12 +14,6 @@ import com.itinna.smalltool.web.view.LoginUserView;
  */
 public interface UserService extends BaseService {
 
-    public Long getUserIdByBizUserId(String bizUserId);
-
-    public Long createNewUser(String bizUserId);
-
-    public LoginUserView getUser(Long userId);
-
-    public LoginUserView login(String bizUserId);
+    public LoginUserView login(LoginForm form);
 
 }

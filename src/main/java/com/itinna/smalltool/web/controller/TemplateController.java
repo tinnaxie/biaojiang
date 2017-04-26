@@ -52,7 +52,7 @@ public class TemplateController extends BaseController {
         // TODO
 
         // 执行业务
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
         ViewTemplateView view = this.templateService.createSave(form);
 
         model.addAttribute("resultView", view);
@@ -67,7 +67,7 @@ public class TemplateController extends BaseController {
         // TODO
 
         // 执行业务
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
         SearchTemplateView view = this.templateService.search(form);
 
         model.addAttribute("resultView", view);
@@ -109,7 +109,7 @@ public class TemplateController extends BaseController {
         // TODO
 
         // 执行业务
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
         ViewTemplateView view = this.templateService.modifySave(form);
 
         model.addAttribute("resultView", view);
@@ -124,7 +124,7 @@ public class TemplateController extends BaseController {
         // TODO
 
         // 执行业务
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
         boolean view = this.templateService.delete(form);
 
         model.addAttribute("resultView", view);

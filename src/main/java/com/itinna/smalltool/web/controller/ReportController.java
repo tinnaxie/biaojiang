@@ -46,7 +46,7 @@ public class ReportController extends BaseController {
     public String selectType(@ModelAttribute("selectReportTypeForm") SelectReportTypeForm form, BindingResult result,
             Model model) {
         // 设置用户id
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
 
         // 执行业务
         SelectReportTypeView view = this.reportService.selectType(form);
@@ -77,7 +77,7 @@ public class ReportController extends BaseController {
         // TODO
 
         // 设置用户id
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
 
         // 执行业务
         ViewReportView view = this.reportService.createSave(form);
@@ -94,7 +94,7 @@ public class ReportController extends BaseController {
         // TODO ...
 
         // 设置用户id
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
 
         // 业务执行
         SearchReportView view = this.reportService.search(form);
@@ -140,7 +140,7 @@ public class ReportController extends BaseController {
         // TODO
 
         // 获取当前用户id
-        form.setUserId(HttpUtils.getLoginUserId());
+        form.setLoginUserId(HttpUtils.getLoginUserId());
 
         // 业务执行
         ViewReportView view = this.reportService.modifySave(form);

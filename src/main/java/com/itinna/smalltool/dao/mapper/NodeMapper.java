@@ -48,4 +48,6 @@ public interface NodeMapper extends BaseMapper {
     int updateByPrimaryKey(Node record);
 
     List<Node> selectByTemplateId(String templateId);
+
+    List<Node> selectByParentId(String parentId);
 }

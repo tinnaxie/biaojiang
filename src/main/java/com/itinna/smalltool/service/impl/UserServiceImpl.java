@@ -3,9 +3,20 @@
  */
 package com.itinna.smalltool.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.itinna.smalltool.common.exception.ServiceException;
+import com.itinna.smalltool.common.utils.StringUtils;
+import com.itinna.smalltool.dao.mapper.UserAppMapper;
+import com.itinna.smalltool.dao.mapper.UserMapper;
+import com.itinna.smalltool.dao.model.User;
+import com.itinna.smalltool.dao.model.UserApp;
 import com.itinna.smalltool.service.UserService;
+import com.itinna.smalltool.web.form.user.LoginForm;
 import com.itinna.smalltool.web.view.LoginUserView;
 
 /**
@@ -17,28 +28,94 @@ import com.itinna.smalltool.web.view.LoginUserView;
 @Service
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
-    @Override
-    public Long getUserIdByBizUserId(String bizUserId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private UserAppMapper userAppMapper;
 
     @Override
-    public Long createNewUser(String bizUserId) {
-        // TODO Auto-generated method stub
-        return null;
+    @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public LoginUserView login(LoginForm form) {
+        String appUserId = form.getAppUserId();
+        if (StringUtils.isEmpty(appUserId)) {
+            throw new ServiceException("no app user ID");
+        }
+        Integer appTypeId = form.getAppTypeId();
+        if (appTypeId == null) {
+            throw new ServiceException("no app type");
+        }
+        String cellphoneNo = form.getCellphoneNo();
+        if (StringUtils.isEmpty(cellphoneNo)) {
+            throw new ServiceException("no cellphone No.");
+        }
+
+        if (this.isNewBiaojiangUser(cellphoneNo)) { // new biaojiang user
+            // insert user
+            String userId = this.createBiaojiangUser(cellphoneNo);
+
+            // insert user_app
+            this.createAppUser(appUserId, userId, appTypeId);
+        } else if (this.isNewAppUser(appUserId, appTypeId)) {// new app user
+            // insert user_app
+
+            this.createAppUser(appUserId, this.getUserIdByCellphoneNo(cellphoneNo), appTypeId);
+        }
+
+        User user = this.userMapper.selectByCellphoneNo(cellphoneNo);
+        if (user == null) {
+            throw new ServiceException("no user");
+        }
+        LoginUserView userView = this.getUserView(user);
+        return userView;
     }
 
-    @Override
-    public LoginUserView getUser(Long userId) {
-        // TODO Auto-generated method stub
-        return null;
+    private LoginUserView getUserView(User user) {
+        LoginUserView userView = new LoginUserView();
+        userView.setUserId(user.getId());
+        return userView;
     }
 
-    @Override
-    public LoginUserView login(String bizUserId) {
-        // TODO Auto-generated method stub
-        return null;
+    private String getUserIdByCellphoneNo(String cellphoneNo) {
+        User user = this.userMapper.selectByCellphoneNo(cellphoneNo);
+        if (user != null) {
+            return user.getId();
+        } else {
+            return null;
+        }
+    }
+
+    private String createBiaojiangUser(String cellphoneNo) {
+        User user = new User();
+        String userId = User.generateID();
+        user.setId(userId);
+        user.setCellphoneNo(cellphoneNo);
+        user.setCreator(userId);
+        user.setModifier(userId);
+        this.userMapper.insertSelective(user);
+        return userId;
+    }
+
+    private void createAppUser(String appUserId, String userId, Integer appTypeId) {
+        if (StringUtils.isEmpty(userId)) {
+            throw new ServiceException("no user id");
+        }
+        UserApp userApp = new UserApp();
+        userApp.setId(UserApp.generateID());
+        userApp.setUserId(userId);
+        userApp.setAppUserId(appUserId);
+        userApp.setAppTypeId(appTypeId);
+        userApp.setCreator(userId);
+        userApp.setModifier(userId);
+        this.userAppMapper.insertSelective(userApp);
+    }
+
+    private boolean isNewBiaojiangUser(String cellphoneNo) {
+        return this.userMapper.selectByCellphoneNo(cellphoneNo) == null;
+    }
+
+    private boolean isNewAppUser(String appUserId, Integer appTypeId) {
+        return this.userAppMapper.selectByAppUserIdAndAppTypeId(appUserId, appTypeId) == null;
     }
 
 }

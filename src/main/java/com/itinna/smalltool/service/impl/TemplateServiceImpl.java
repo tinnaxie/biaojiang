@@ -4,7 +4,10 @@
 package com.itinna.smalltool.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +79,7 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public ViewTemplateView createSave(CreateSaveTemplateForm form) {
         // insert template
-        String userId = form.getUserId();
+        String userId = form.getLoginUserId();
         if (StringUtils.isEmpty(userId)) {
             throw new ServiceException("no user");
         }
@@ -97,7 +100,7 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         this.createReporters(form.getReporterIds(), templateId, userId);
 
         // insert node
-        this.createNodes(template.getNodes(), templateId, userId, TOP_NODE_PARENT_ID);
+        this.createNodes(template.getNodes(), templateId, userId);
 
         // set return value
         return this.view(templateId);
@@ -135,22 +138,23 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         }
     }
 
-    private void createNodes(List<Node> nodes, String templateId, String userId, String parentId) {
+    private void createNodes(List<Node> nodes, String templateId, String userId) {
         if (nodes != null && nodes.size() > 0) {
+            Map<String, String> nodeIdMap = new HashMap<String, String>();
+            Collections.sort(nodes);
             for (Node node : nodes) {
+                String webNodeId = node.getId();
                 String nodeId = Node.generateID();
+                nodeIdMap.put(webNodeId, nodeId);
+                String parentId = (node.getParentId() == null || node.getParentId().equals(TOP_NODE_PARENT_ID))
+                        ? TOP_NODE_PARENT_ID : nodeIdMap.get(node.getParentId());
+
                 node.setId(nodeId);
                 node.setParentId(parentId);
                 node.setTemplateId(templateId);
                 node.setCreator(userId);
                 node.setModifier(userId);
                 this.nodeMapper.insertSelective(node);
-
-                List<Node> subNodes = node.getSubNodes();
-                if (subNodes != null && subNodes.size() > 0) {
-                    parentId = node.getId();
-                    modifyNodes(subNodes, templateId, userId, parentId);
-                }
             }
         }
     }
@@ -165,10 +169,12 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         if (nodes != null && nodes.size() > 0) {
             List<NodeView> nodeViews = new ArrayList<NodeView>();
             view.setNodes(nodeViews);
+            Collections.sort(nodes);
             for (Node node : nodes) {
                 NodeView nodeView = new NodeView();
                 nodeViews.add(nodeView);
                 nodeView.setId(node.getId());
+                nodeView.setParentId(node.getParentId());
                 nodeView.setName(node.getName());
                 nodeView.setNodeTypeId(node.getNodeTypeId());
                 nodeView.setPosition(node.getPosition());
@@ -193,7 +199,7 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         if (template == null) {
             throw new ServiceException("no template");
         }
-        String userId = form.getUserId();
+        String userId = form.getLoginUserId();
         if (userId == null) {
             throw new ServiceException("no user");
         }
@@ -202,8 +208,7 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
 
         // update node
         String templateId = template.getId();
-        this.deleteNodes(template.getNodes(), templateId);
-        this.modifyNodes(template.getNodes(), templateId, userId, TOP_NODE_PARENT_ID);
+        this.modifyNodes(template.getNodes(), templateId, userId);
 
         // update user_template
         this.deleteAdminsAndReporters(templateId);
@@ -234,12 +239,20 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         // add web node id to a list
         List<String> webNodeIds = this.getWebNodeIds(nodes, null);
 
-        // 删除表单里没有包含的数据库里的node
+        // 删除表单里没有包含的数据库里的node及其子node
         List<Node> dbNodes = this.nodeMapper.selectByTemplateId(templateId);
         if (dbNodes != null) {
             for (Node dbNode : dbNodes) {
                 String dbNodeId = dbNode.getId();
                 if (webNodeIds == null || !webNodeIds.contains(dbNodeId)) {
+                    List<Node> subNodes = this.nodeMapper.selectByParentId(dbNodeId);
+                    if (subNodes != null) {
+                        for (Node subNode : subNodes) {
+                            // 删除所有子节点
+                            this.nodeMapper.deleteByPrimaryKey(subNode.getId());
+                        }
+                    }
+                    // 删除该父节点
                     this.nodeMapper.deleteByPrimaryKey(dbNodeId);
                 }
             }
@@ -259,13 +272,20 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         return webNodeIds;
     }
 
-    private void modifyNodes(List<Node> nodes, String templateId, String userId, String parentId) {
+    private void modifyNodes(List<Node> nodes, String templateId, String userId) {
+        this.deleteNodes(nodes, templateId);
         if (nodes != null && nodes.size() > 0) {
+            Map<String, String> nodeIdMap = new HashMap<String, String>();
+            Collections.sort(nodes);
             for (Node node : nodes) {
-                String nodeId = node.getId();
-                Node dbNode = this.nodeMapper.selectByPrimaryKey(nodeId);
+                String webNodeId = node.getId();
+                Node dbNode = this.nodeMapper.selectByPrimaryKey(webNodeId);
                 if (dbNode == null) { // new node to create
-                    nodeId = Node.generateID();
+                    String nodeId = Node.generateID();
+                    nodeIdMap.put(webNodeId, nodeId);
+                    String parentId = (node.getParentId() == null || node.getParentId().equals(TOP_NODE_PARENT_ID))
+                            ? TOP_NODE_PARENT_ID : nodeIdMap.get(node.getParentId());
+
                     node.setId(nodeId);
                     node.setParentId(parentId);
                     node.setTemplateId(templateId);
@@ -273,14 +293,9 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
                     node.setModifier(userId);
                     this.nodeMapper.insertSelective(node);
                 } else { // old node to update
+                    nodeIdMap.put(webNodeId, webNodeId);
                     node.setModifier(userId);
                     this.nodeMapper.updateByPrimaryKeySelective(node);
-                }
-
-                List<Node> subNodes = node.getSubNodes();
-                if (subNodes != null && subNodes.size() > 0) {
-                    parentId = node.getId();
-                    modifyNodes(subNodes, templateId, userId, parentId);
                 }
             }
         }
