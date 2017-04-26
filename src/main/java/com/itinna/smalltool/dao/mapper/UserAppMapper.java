@@ -1,5 +1,7 @@
 package com.itinna.smalltool.dao.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.itinna.smalltool.dao.model.UserApp;
@@ -48,4 +50,6 @@ public interface UserAppMapper extends BaseMapper {
     int updateByPrimaryKey(UserApp record);
 
     UserApp selectByAppUserIdAndAppTypeId(@Param("appUserId") String appUserId, @Param("appTypeId") Integer appTypeId);
+
+    List<UserApp> selectByUserId(String userId);
 }

@@ -346,20 +346,7 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
         if (StringUtils.isEmpty(templateId)) {
             throw new ServiceException("no template id");
         }
-
-        // delete report data
-        this.deleteReports(templateId);
-
-        // delete user_template
-        this.deleteAdminsAndReporters(templateId);
-
-        // delete node
-        this.deleteNodes(templateId);
-
-        // delete template
-        this.templateMapper.deleteByPrimaryKey(templateId);
-
-        return true;
+        return this._delete(templateId);
     }
 
     private void deleteReports(String templateId) {
@@ -397,6 +384,27 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
                 this.nodeMapper.deleteByPrimaryKey(node.getId());
             }
         }
+    }
+
+    @Override
+    public boolean delete(String templateId) {
+        return this._delete(templateId);
+    }
+
+    private boolean _delete(String templateId) {
+        // delete report data
+        this.deleteReports(templateId);
+
+        // delete user_template
+        this.deleteAdminsAndReporters(templateId);
+
+        // delete node
+        this.deleteNodes(templateId);
+
+        // delete template
+        this.templateMapper.deleteByPrimaryKey(templateId);
+
+        return true;
     }
 
 }

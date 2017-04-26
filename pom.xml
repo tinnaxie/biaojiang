@@ -184,6 +184,12 @@
             <artifactId>qingtui-sdk-java</artifactId>
             <version>1.4</version>
         </dependency>
+        <!--  validator -->
+                <dependency>
+            <groupId>org.hibernate</groupId>  
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.1.0.Final</version>
+        </dependency>
     </dependencies>
 
     <build>

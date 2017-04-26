@@ -69,4 +69,6 @@ public interface TemplateService extends BaseService {
      */
     boolean delete(DeleteTemplateForm form);
 
+    boolean delete(String templateId);
+
 }

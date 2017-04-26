@@ -3,6 +3,8 @@
  */
 package com.itinna.smalltool.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -13,8 +15,11 @@ import com.itinna.smalltool.common.exception.ServiceException;
 import com.itinna.smalltool.common.utils.StringUtils;
 import com.itinna.smalltool.dao.mapper.UserAppMapper;
 import com.itinna.smalltool.dao.mapper.UserMapper;
+import com.itinna.smalltool.dao.mapper.UserTemplateMapper;
 import com.itinna.smalltool.dao.model.User;
 import com.itinna.smalltool.dao.model.UserApp;
+import com.itinna.smalltool.dao.model.UserTemplate;
+import com.itinna.smalltool.service.TemplateService;
 import com.itinna.smalltool.service.UserService;
 import com.itinna.smalltool.web.form.user.LoginForm;
 import com.itinna.smalltool.web.view.LoginUserView;
@@ -33,6 +38,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
     @Autowired
     private UserAppMapper userAppMapper;
+
+    @Autowired
+    private UserTemplateMapper userTemplateMapper;
+
+    @Autowired
+    private TemplateService templateService;
 
     @Override
     @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -118,4 +129,62 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
         return this.userAppMapper.selectByAppUserIdAndAppTypeId(appUserId, appTypeId) == null;
     }
 
+    @Override
+    @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public boolean delete(List<String> userIds) {
+        if (userIds != null) {
+            for (String userId : userIds) {
+                this._delete(userId);
+            }
+        }
+        return true;
+    }
+
+    private void deleteUser(String userId) {
+        this.userMapper.deleteByPrimaryKey(userId);
+    }
+
+    private void deleteUserApp(String userId) {
+        List<UserApp> userApps = this.userAppMapper.selectByUserId(userId);
+        if (userApps != null) {
+            for (UserApp userApp : userApps) {
+                this.userAppMapper.deleteByPrimaryKey(userApp.getId());
+            }
+        }
+    }
+
+    private void deleteUserTemplate(String userId) {
+        List<UserTemplate> userTemplates = this.userTemplateMapper.selectByUserId(userId);
+        if (userTemplates != null) {
+            for (UserTemplate userTemplate : userTemplates) {
+                this.userTemplateMapper.deleteByPrimaryKey(userTemplate.getId());
+
+                // delete template
+                String templateId = userTemplate.getTemplateId();
+                List<UserTemplate> _userTemplates = this.userTemplateMapper.selectByTemplateId(templateId);
+                if (_userTemplates == null) {
+                    this.templateService.delete(templateId);
+                }
+            }
+        }
+    }
+
+    @Override
+    @Transactional(value = "transactionManager", isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public boolean delete(String userId) {
+        return this._delete(userId);
+    }
+
+    private boolean _delete(String userId) {
+        // delete user_app
+        this.deleteUserApp(userId);
+
+        // delete user_template(contains : template, node, report, report_value, attachment)
+        this.deleteUserTemplate(userId);
+
+        // delete user
+        this.deleteUser(userId);
+
+        return true;
+    }
 }

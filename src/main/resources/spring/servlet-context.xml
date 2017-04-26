@@ -46,4 +46,20 @@
         <property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml" />
     </bean>
 
+    <!--local -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basenames">
+            <list>
+                <value>classpath:locale/message</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="localeResolver"
+        class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="zh_CN" />
+    </bean>
+
 </beans>

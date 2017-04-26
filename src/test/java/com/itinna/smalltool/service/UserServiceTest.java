@@ -20,7 +20,10 @@ public class UserServiceTest {
     public void test() {
         LoginUserView view = this.userService.login(this.preLogin());
         System.out.println(view.toString());
-        System.out.println("1. login success");
+        System.out.println("1. login new biaojiang user success");
+
+        this.userService.delete(view.getUserId());
+        System.out.println("2. delete user success");
     }
 
     private LoginForm preLogin() {

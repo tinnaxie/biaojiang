@@ -48,4 +48,6 @@ public interface UserTemplateMapper extends BaseMapper {
     int updateByPrimaryKey(UserTemplate record);
 
     List<UserTemplate> selectByTemplateId(String templateId);
+
+    List<UserTemplate> selectByUserId(String userId);
 }

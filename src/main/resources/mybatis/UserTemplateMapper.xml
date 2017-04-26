@@ -145,4 +145,10 @@
     where template_id = #{templateId,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_template
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
 </mapper>

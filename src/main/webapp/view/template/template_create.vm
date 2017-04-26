@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <title>表酱</title>
+        <title>#springMessage($!{app.name})</title>
         <link href="$link.contextPath/css/style.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
         <div id="content_box">
             <div id="top_box">
-                <div id="title_box"><label>表酱</label></div>
+                <div id="title_box"><label>#springMessage($!{app.name})</label></div>
                 <div id="save_box">&nbsp;&nbsp;<a href="#springUrl("/template/save")">完成</a></div>
                 <div id="cancel_box"><a href="#springUrl("/template/index")">取消</a></div>
             </div>

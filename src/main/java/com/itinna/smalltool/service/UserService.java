@@ -3,6 +3,8 @@
  */
 package com.itinna.smalltool.service;
 
+import java.util.List;
+
 import com.itinna.smalltool.web.form.user.LoginForm;
 import com.itinna.smalltool.web.view.LoginUserView;
 
@@ -14,6 +16,10 @@ import com.itinna.smalltool.web.view.LoginUserView;
  */
 public interface UserService extends BaseService {
 
-    public LoginUserView login(LoginForm form);
+    LoginUserView login(LoginForm form);
+
+    boolean delete(String userId);
+
+    boolean delete(List<String> userIds);
 
 }
