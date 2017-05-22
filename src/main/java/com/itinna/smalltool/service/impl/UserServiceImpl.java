@@ -56,24 +56,24 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
         if (appTypeId == null) {
             throw new ServiceException("no app type");
         }
-        String cellphoneNo = form.getCellphoneNo();
-        if (StringUtils.isEmpty(cellphoneNo)) {
+        String cellphone = form.getCellphone();
+        if (StringUtils.isEmpty(cellphone)) {
             throw new ServiceException("no cellphone No.");
         }
 
-        if (this.isNewBiaojiangUser(cellphoneNo)) { // new biaojiang user
+        if (this.isNewBiaojiangUser(cellphone)) { // new biaojiang user
             // insert user
-            String userId = this.createBiaojiangUser(cellphoneNo);
+            String userId = this.createBiaojiangUser(cellphone);
 
             // insert user_app
             this.createAppUser(appUserId, userId, appTypeId);
         } else if (this.isNewAppUser(appUserId, appTypeId)) {// new app user
             // insert user_app
 
-            this.createAppUser(appUserId, this.getUserIdByCellphoneNo(cellphoneNo), appTypeId);
+            this.createAppUser(appUserId, this.getUserIdByCellphoneNo(cellphone), appTypeId);
         }
 
-        User user = this.userMapper.selectByCellphoneNo(cellphoneNo);
+        User user = this.userMapper.selectByCellphoneNo(cellphone);
         if (user == null) {
             throw new ServiceException("no user");
         }
@@ -96,11 +96,11 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
         }
     }
 
-    private String createBiaojiangUser(String cellphoneNo) {
+    private String createBiaojiangUser(String cellphone) {
         User user = new User();
         String userId = User.generateID();
         user.setId(userId);
-        user.setCellphoneNo(cellphoneNo);
+        user.setCellphone(cellphone);
         user.setCreator(userId);
         user.setModifier(userId);
         this.userMapper.insertSelective(user);

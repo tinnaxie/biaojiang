@@ -33,7 +33,9 @@ public class JdbcConection {
 
     public static void main(String[] args) {
         // getConnection();
-
+        // ApplicationContext context = new FileSystemXmlApplicationContext("classpath:/spring/servlet-context.xml");
+        // Object[] arguments = new Object[] { "gao kan", Calendar.getInstance().getTime() };
+        // System.out.println(context.getMessage("app.name", arguments, Locale.CHINA));
     }
 
 }

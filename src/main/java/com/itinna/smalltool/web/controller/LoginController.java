@@ -35,7 +35,13 @@ public class LoginController extends BaseController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(@ModelAttribute("loginForm") LoginForm form, BindingResult result, Model model) {
+    public String login(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        return "login";
+    }
+
+    @RequestMapping("/login/submit")
+    public String loginSubmit(@ModelAttribute("loginForm") LoginForm form, BindingResult result, Model model) {
         // 表单验证
         // TODO
 
@@ -55,6 +61,6 @@ public class LoginController extends BaseController {
         if (StringUtils.isNotEmpty(userId)) {
             HttpUtils.removeLoginUser();
         }
-        return "logout";
+        return "/logout";
     }
 }

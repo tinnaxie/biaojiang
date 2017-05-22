@@ -11,6 +11,7 @@
         <div id="content_box">
             <div id="top_box">
                 <div id="title_box"><label>表酱</label></div>
+                <div><a href="#springUrl("/logout")">关闭</a></div>
             </div>
             <div id="search_box">
                 <div><textarea>输入关键字</textarea></div>

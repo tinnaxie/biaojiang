@@ -46,7 +46,7 @@
         <property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml" />
     </bean>
 
-    <!--local -->
+    <!--locale -->
     <bean id="messageSource"
         class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="defaultEncoding" value="UTF-8" />
@@ -61,5 +61,19 @@
         class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
         <property name="defaultLocale" value="zh_CN" />
     </bean>
+
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor"
+            class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="language" />
+        </bean>
+    </mvc:interceptors>
+
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <mvc:annotation-driven validator="validator"/>
+
+    <bean id="validator"
+        class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
+        p:validationMessageSource-ref="messageSource" />
 
 </beans>

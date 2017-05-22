@@ -28,7 +28,7 @@ public class UserServiceTest {
 
     private LoginForm preLogin() {
         LoginForm form = new LoginForm();
-        form.setCellphoneNo("18623143881");
+        form.setCellphone("18623143881");
         form.setAppTypeId(1);
         form.setAppUserId("QT123456");
         return form;

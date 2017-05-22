@@ -3,18 +3,18 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <title>#springMessage($!{app.name})</title>
+        <title>表酱</title>
         <link href="$link.contextPath/css/style.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
         <div id="content_box">
             <div id="top_box">
-                <label>表酱</label>
+                <div id="title_box"><label>表酱</label></div>
             </div>
             <div id="main_box">
-                    <div><label>是否授权登录？</label></div>
-                    <div><a href="#springUrl("/login"))">授权</a></div>
+                <div><label>注销成功</label></div>
+                <div><a href="#springUrl("/login")">重新登录</a></div>
             </div>
         </div>
     </body>

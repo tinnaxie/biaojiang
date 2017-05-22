@@ -17,7 +17,7 @@ public class LoginForm extends BaseForm {
 
     private Integer appTypeId;
 
-    private String cellphoneNo;
+    private String cellphone;
 
     /**
      * @return the appUserId
@@ -52,15 +52,15 @@ public class LoginForm extends BaseForm {
     /**
      * @return the cellphoneNo
      */
-    public String getCellphoneNo() {
-        return cellphoneNo;
+    public String getCellphone() {
+        return cellphone;
     }
 
     /**
      * @param cellphoneNo
      *            the cellphoneNo to set
      */
-    public void setCellphoneNo(String cellphoneNo) {
-        this.cellphoneNo = cellphoneNo;
+    public void setCellphone(String cellphoneNo) {
+        this.cellphone = cellphoneNo;
     }
 }

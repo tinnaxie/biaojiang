@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>表酱</title>
+        <link href="$link.contextPath/css/style.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="#springUrl("/js/common.js")"></script>
+    </head>
+
+    <body>
+        <div id="content_box">
+            <div id="top_box">
+                <div id="title_box"><label>表酱</label></div>
+                <div><a href="#springUrl("/logout")">关闭</a></div>
+            </div>
+            <div id="main_box">
+                    <form id="loginForm" action="#springUrl("/login/submit")" method="post">
+                        <div>
+                            ###springBind("loginForm.appUserId")
+                            <input type="hidden" name="appUserId" value="QT12345"/>
+                            <input type="hidden" name="cellphone" value="18623143881"/>
+                            <input type="hidden" name="appTypeId" value="1"/>
+                            <input type="submit" value="授权登录" onclick="submitForm('loginForm')"/>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </body>
+</html>

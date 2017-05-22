@@ -10,7 +10,8 @@
     <body>
         <div id="content_box">
             <div id="top_box">
-                <label>表酱</label>
+                <div id="title_box"><label>表酱</label></div>
+                <div><a href="#springUrl("/logout")">关闭</a></div>
             </div>
             #parse("navigator.vm")
             <div id="main_box">

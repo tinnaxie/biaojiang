@@ -3,7 +3,7 @@
 <mapper namespace="com.itinna.smalltool.dao.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.itinna.smalltool.dao.model.User">
     <id column="user_id" jdbcType="VARCHAR" property="id" />
-    <result column="cellphone_no" jdbcType="VARCHAR" property="cellphoneNo" />
+    <result column="cellphone" jdbcType="VARCHAR" property="cellphone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="user_creator" jdbcType="VARCHAR" property="creator" />
     <result column="user_create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -12,7 +12,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     user.id as user_id, 
-    user.cellphone_no, 
+    user.cellphone, 
     user.password, 
     user.creator as user_creator, 
     user.create_time as user_create_time, 
@@ -40,10 +40,10 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.itinna.smalltool.dao.model.User">
-    insert into user (id, cellphone_no, password, 
+    insert into user (id, cellphone, password, 
       creator, create_time, modifier, 
       modify_time)
-    values (#{id,jdbcType=VARCHAR}, #{cellphoneNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, now(), #{modifier,jdbcType=VARCHAR}, now())
   </insert>
   <insert id="insertSelective" parameterType="com.itinna.smalltool.dao.model.User">
@@ -52,8 +52,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="cellphoneNo != null">
-        cellphone_no,
+      <if test="cellphone != null">
+        cellphone,
       </if>
       <if test="password != null">
         password,
@@ -71,8 +71,8 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="cellphoneNo != null">
-        #{cellphoneNo,jdbcType=VARCHAR},
+      <if test="cellphone != null">
+        #{cellphone,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -90,8 +90,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.itinna.smalltool.dao.model.User">
     update user
     <set>
-      <if test="cellphoneNo != null">
-        cellphone_no = #{cellphoneNo,jdbcType=VARCHAR},
+      <if test="cellphone != null">
+        cellphone = #{cellphone,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -111,7 +111,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.itinna.smalltool.dao.model.User">
     update user
-    set cellphone_no = #{cellphoneNo,jdbcType=VARCHAR},
+    set cellphone = #{cellphone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       modifier = #{modifier,jdbcType=VARCHAR},
       modify_time = now()
@@ -122,7 +122,7 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where cellphone_no = #{cellphoneNo,jdbcType=VARCHAR}
+    where cellphone = #{cellphone,jdbcType=VARCHAR}
   </select>
 
 </mapper>

@@ -11,6 +11,7 @@
         <div id="content_box">
             <div id="top_box">
                 <div id="title_box"><label>表酱</label></div>
+                <div><a href="#springUrl("/logout")">关闭</a></div>
                 <div id="cancel_box" class="cancel_style"><a href="#springUrl("/index")">取消</a></div>
             </div>
             <div id="report_type_content_box">
